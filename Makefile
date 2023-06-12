@@ -1,4 +1,7 @@
 define HEADER
+                              Project
+                                by
+                    parserKiller & cooperMaker
  ________      ___  ___      ________      ________      ________     
 |\   ____\    |\  \|\  \    |\   __  \    |\_____  \    |\   ___ \ 
 \ \  \___|    \ \  \\\\\  \   \ \  \|\ /_   \|____|\ /_   \ \  \_|\ \ 
@@ -13,7 +16,7 @@ export HEADER
 NAME = cub3D
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 COLOR = \033[1;32m
 
 SRCS_RCASTER = $(addprefix ./src/, raycaster.c)
