@@ -6,14 +6,16 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	{
 		mlx_terminate(((t_rc *)param)->mlx);
 		exit(0);
-	}	
+	}
 	(void)param;
 }
 
-int32_t	main(void)
+int32_t	main(int argc, char **argv)
 {
 	t_rc		data;
+	t_init		init;
 
+	arg_checker(argc, argv, &init);
 	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data.mlx)
 		return (EXIT_FAILURE);

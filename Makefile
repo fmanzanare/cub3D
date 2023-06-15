@@ -1,10 +1,10 @@
 define HEADER
- ________      ___  ___      ________      ________      ________     
-|\   ____\    |\  \|\  \    |\   __  \    |\_____  \    |\   ___ \ 
-\ \  \___|    \ \  \\\\\  \   \ \  \|\ /_   \|____|\ /_   \ \  \_|\ \ 
- \ \  \        \ \  \\\\\  \   \ \   __  \        \|\  \   \ \  \ \\\ \  
-  \ \  \____    \ \  \\\\\  \   \ \  \|\  \      __\_\  \   \ \  \_\\\ \ 
-   \ \_______\   \ \_______\   \ \_______\    |\_______\   \ \_______\ 
+ ________      ___  ___      ________      ________      ________
+|\   ____\    |\  \|\  \    |\   __  \    |\_____  \    |\   ___ \
+\ \  \___|    \ \  \\\\\  \   \ \  \|\ /_   \|____|\ /_   \ \  \_|\ \
+ \ \  \        \ \  \\\\\  \   \ \   __  \        \|\  \   \ \  \ \\\ \
+  \ \  \____    \ \  \\\\\  \   \ \  \|\  \      __\_\  \   \ \  \_\\\ \
+   \ \_______\   \ \_______\   \ \_______\    |\_______\   \ \_______\
     \|_______|    \|_______|    \|_______|    \|_______|    \|_______|
 
 endef
@@ -17,8 +17,10 @@ CFLAGS = -Wall -Werror -Wextra -g
 COLOR = \033[1;32m
 
 SRCS_RCASTER = $(addprefix ./src/, raycaster.c)
+SRCS_MAP = $(addprefix ./src/map_init/, map_checker.c map_init.c)
 
 OBJS_RCASTER = $(addsuffix .o, $(notdir $(basename $(SRCS_RCASTER))))
+OBJS_MAP = $(addsuffix .o, $(notdir $(basename $(SRCS_MAP))))
 
 LIBFT = ./includes/libft_plus/libft.a
 LIBFT_LINK = -L./includes/libft_plus -lft
@@ -34,8 +36,11 @@ mlx_lib:
 $(OBJS_RCASTER):	$(SRCS_RCASTER)
 			@$(CC) $(CFLAGS) -c $(SRCS_RCASTER) $(MLX_I)
 
-$(NAME):	$(OBJS_RCASTER) $(LIBFT)
-			@$(CC) $(CFLAGS) $(OBJS_RCASTER) $(MLX_L) $(GLFW_L) $(LIBFT_LINK) $(MLX_I) -o $(NAME)
+$(OBJS_MAP):	$(SRCS_MAP)
+			@$(CC) $(CFLAGS) -c $(SRCS_MAP) $(MLX_I)
+
+$(NAME):	$(OBJS_RCASTER) $(OBJS_MAP) $(LIBFT)
+			@$(CC) $(CFLAGS) $(OBJS_RCASTER) $(OBJS_MAP) $(MLX_L) $(GLFW_L) $(LIBFT_LINK) $(MLX_I) -o $(NAME)
 			@echo "$(COLOR)$$HEADER"
 
 $(LIBFT):
@@ -44,7 +49,7 @@ $(LIBFT):
 re:			fclean all
 
 clean:
-			@rm -f $(OBJS_RCASTER)
+			@rm -f $(OBJS_RCASTER) $(OBJS_MAP)
 			@make -C ./includes/libft_plus clean
 			@make -C ./MLX42 clean
 
