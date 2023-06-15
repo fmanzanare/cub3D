@@ -9,33 +9,35 @@ static void	map_parser(t_init *init)
 	{
 		if (check_texture(init, init->in_cnt[i]))
 		{
+			// Check if all texture variables have been filled.
 			i++;
 			continue ;
 		}
 		else if (check_colors(init, init->in_cnt[i]))
 		{
+			// Check if all colors variables have been filled.
 			i++;
 			continue ;
 		}
-		// else if (check_map(init, init->in_cnt, i))
-		//	break;
+		else if (check_map(init, i))
+			break;
 		i++;
 	}
 }
 
 /* ******************************************** */
 // TEMPORAL CHECKER FUNCTION!!!
-static void	print_incnt(t_init *init, int len)
+static void	print_incnt(t_init *init)
 {
 	int	i;
 
-	i = 0;
-	while (i < len)
-	{
-		printf("%s", init->in_cnt[i]);
-		i++;
-	}
-	printf("\n");
+	// i = 0;
+	// while (init->in_cnt[i])
+	// {
+	// 	printf("%s", init->in_cnt[i]);
+	// 	i++;
+	// }
+	// printf("\n");
 	printf("North tex: %s\n", init->map->n_tex);
 	printf("South tex: %s\n", init->map->s_tex);
 	printf("West tex: %s\n", init->map->w_tex);
@@ -43,6 +45,13 @@ static void	print_incnt(t_init *init, int len)
 	printf("\n");
 	printf("F color: %s\n", init->f_rgb);
 	printf("C color: %s\n", init->c_rgb);
+	printf("\n");
+	i = 0;
+	while (init->map->map[i])
+	{
+		printf("%s", init->map->map[i]);
+		i++;
+	}
 }
 /* ******************************************** */
 
@@ -70,5 +79,5 @@ void	map_reader(t_init *init)
 		j++;
 	}
 	map_parser(init);
-	print_incnt(init, i); // TEMPORAL CHECKER FUNCTION!
+	print_incnt(init); // TEMPORAL CHECKER FUNCTION!
 }

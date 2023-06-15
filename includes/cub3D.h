@@ -48,6 +48,6 @@ void	map_reader(t_init *init);
 int		check_texture(t_init *init, char *str);
 int		check_colors(t_init *init, char *str);
 char	*get_tex_or_color(char *str);
-
+int		check_map(t_init *init, int idx);
 
 #endif
