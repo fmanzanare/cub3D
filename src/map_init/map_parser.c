@@ -1,68 +1,5 @@
 #include "../../includes/cub3D.h"
 
-static char *get_tex(char *str)
-{
-	char	*ret;
-	int		i;
-
-	str += 2;
-	i = 0;
-	while (ft_isspecialchar(*str))
-			str++;
-	ret = malloc(sizeof(char) * (ft_strlen(str)));
-	while (*str && *str != '\n')
-	{
-		ret[i] = *str;
-		i++;
-		str++;
-	}
-	ret[i] = '\0';
-	puts(ret);
-	return (ret);
-}
-
-static int check_cardinal(t_init *init, char *str)
-{
-	if (*str == 'N' && str[1] == 'O')
-	{
-		printf("map %p\n", init->map);
-		init->map->n_tex = get_tex(str);
-		return (1);
-	}
-	else if (*str == 'S' && str[1] == 'O')
-	{
-		init->map->s_tex = get_tex(str);
-		return (1);
-	}
-	else if (*str == 'W' && str[1] == 'E')
-	{
-		init->map->w_tex = get_tex(str);
-		return (1);
-	}
-	else if (*str == 'E' && str[1] == 'A')
-	{
-		init->map->e_tex = get_tex(str);
-		return (1);
-	}
-	return (0);
-}
-
-static int check_texture(t_init *init, char *str)
-{
-	char	*tmp;
-
-	tmp = str;
-	while (*tmp && *tmp != '\n')
-	{
-		while (ft_isspecialchar(*tmp))
-			tmp++;
-		if (check_cardinal(init, tmp))
-			return (1);
-		tmp++;
-	}
-	return (0);
-}
-
 static void	map_parser(t_init *init)
 {
 	int	i;
@@ -75,6 +12,13 @@ static void	map_parser(t_init *init)
 			i++;
 			continue ;
 		}
+		else if (check_colors(init, init->in_cnt[i]))
+		{
+			i++;
+			continue ;
+		}
+		// else if (check_map(init, init->in_cnt, i))
+		//	break;
 		i++;
 	}
 }
@@ -91,11 +35,14 @@ static void	print_incnt(t_init *init, int len)
 		printf("%s", init->in_cnt[i]);
 		i++;
 	}
-
+	printf("\n");
 	printf("North tex: %s\n", init->map->n_tex);
 	printf("South tex: %s\n", init->map->s_tex);
 	printf("West tex: %s\n", init->map->w_tex);
 	printf("East tex: %s\n", init->map->e_tex);
+	printf("\n");
+	printf("F color: %s\n", init->f_rgb);
+	printf("C color: %s\n", init->c_rgb);
 }
 /* ******************************************** */
 

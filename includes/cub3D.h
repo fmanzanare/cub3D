@@ -45,6 +45,9 @@ typedef struct s_init {
 void	arg_checker(int argc, char **argv, t_init *init);
 void	init_vars(t_init *init);
 void	map_reader(t_init *init);
+int		check_texture(t_init *init, char *str);
+int		check_colors(t_init *init, char *str);
+char	*get_tex_or_color(char *str);
 
 
 #endif
