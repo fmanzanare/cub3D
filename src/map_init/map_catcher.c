@@ -1,6 +1,5 @@
 #include "../../includes/cub3D.h"
 
-/* MAP UTILS */
 static int check_empty_line(char *str)
 {
 	int	i;
@@ -22,13 +21,13 @@ static int get_map_rows(t_init *init, int idx)
 	rows = 0;
 	while (init->in_cnt[idx])
 	{
+		if (!check_empty_line(init->in_cnt[idx]))
+			rows++;
 		idx++;
-		rows++;
 	}
 	return (rows);
 }
 
-/* MAP CATCHER */
 static int	check_first_line(char *str)
 {
 	int	i;
@@ -57,9 +56,12 @@ int	check_map(t_init *init, int idx)
 	i = 0;
 	while (init->in_cnt[idx])
 	{
-		init->map->map[i] = ft_strdup(init->in_cnt[idx]);
+		if (!check_empty_line(init->in_cnt[idx]))
+		{
+			init->map->map[i] = ft_strdup(init->in_cnt[idx]);
+			i++;
+		}
 		idx++;
-		i++;
 	}
 	init->map->map[i] = NULL;
 	return (1);
