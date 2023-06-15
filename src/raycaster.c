@@ -15,6 +15,7 @@ int32_t	main(int argc, char **argv)
 	t_rc		data;
 	t_init		init;
 
+
 	arg_checker(argc, argv, &init);
 	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data.mlx)

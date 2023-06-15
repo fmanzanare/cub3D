@@ -17,7 +17,7 @@ CFLAGS = -Wall -Werror -Wextra -g
 COLOR = \033[1;32m
 
 SRCS_RCASTER = $(addprefix ./src/, raycaster.c)
-SRCS_MAP = $(addprefix ./src/map_init/, map_checker.c map_init.c)
+SRCS_MAP = $(addprefix ./src/map_init/, map_checker.c map_init.c map_parser.c)
 
 OBJS_RCASTER = $(addsuffix .o, $(notdir $(basename $(SRCS_RCASTER))))
 OBJS_MAP = $(addsuffix .o, $(notdir $(basename $(SRCS_MAP))))

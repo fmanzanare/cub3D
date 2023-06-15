@@ -19,6 +19,7 @@ typedef struct s_map {
 	char			**map;
 	int				height;
 	int				width;
+	int				flag;
 	char			*n_tex;
 	char			*s_tex;
 	char			*w_tex;
@@ -28,7 +29,8 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_init {
-	char	*input;
+	char	*in_route;
+	char	**in_cnt;
 	int		in_fd;
 	int		n_tex_fd;
 	int		s_tex_fd;
@@ -41,6 +43,8 @@ typedef struct s_init {
 
 //*************************** FUNCTIONS **************************************//
 void	arg_checker(int argc, char **argv, t_init *init);
+void	init_vars(t_init *init);
+void	map_reader(t_init *init);
 
 
 #endif
