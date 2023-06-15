@@ -19,7 +19,6 @@ typedef struct s_map {
 	char			**map;
 	int				height;
 	int				width;
-	int				flag;
 	char			*n_tex;
 	char			*s_tex;
 	char			*w_tex;

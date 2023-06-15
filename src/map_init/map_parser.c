@@ -9,13 +9,11 @@ static void	map_parser(t_init *init)
 	{
 		if (check_texture(init, init->in_cnt[i]))
 		{
-			// Check if all texture variables have been filled.
 			i++;
 			continue ;
 		}
 		else if (check_colors(init, init->in_cnt[i]))
 		{
-			// Check if all colors variables have been filled.
 			i++;
 			continue ;
 		}
