@@ -53,16 +53,17 @@ int	check_map(t_init *init, int idx)
 	init->map->map = malloc(sizeof(char *) * get_map_rows(init, idx) + 1);
 	if (!init->map->map)
 		ft_puterr_fd("Error\nNot enough memory available", 2, 1);
-	i = 0;
-	while (init->in_cnt[idx])
-	{
-		if (!check_empty_line(init->in_cnt[idx]))
-		{
-			init->map->map[i] = ft_strdup(init->in_cnt[idx]);
-			i++;
-		}
-		idx++;
-	}
-	init->map->map[i] = NULL;
+	i = 0; // If map_normalizer works, it must be deleted.
+	// while (init->in_cnt[idx])
+	// {
+	// 	if (!check_empty_line(init->in_cnt[idx]))
+	// 	{
+	// 		init->map->map[i] = ft_strdup(init->in_cnt[idx]);
+	// 		i++;
+	// 	}
+	// 	idx++;
+	// }
+	// init->map->map[i] = NULL;
+	map_normalizer(init, idx);
 	return (1);
 }

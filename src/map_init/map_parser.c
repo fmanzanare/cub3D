@@ -47,7 +47,7 @@ static void	print_incnt(t_init *init)
 	i = 0;
 	while (init->map->map[i])
 	{
-		printf("%s", init->map->map[i]);
+		printf("%s\n", init->map->map[i]);
 		i++;
 	}
 }
