@@ -47,7 +47,9 @@ void	map_reader(t_init *init);
 int		check_texture(t_init *init, char *str);
 int		check_colors(t_init *init, char *str);
 char	*get_tex_or_color(char *str);
-int		check_map(t_init *init, int idx);
+int		map_builder(t_init *init, int idx);
 void	map_normalizer(t_init *init, int idx);
+void	map_checker(t_init *init);
+void	print_incnt(t_init *init);
 
 #endif

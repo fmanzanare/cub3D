@@ -21,8 +21,7 @@ static int get_map_rows(t_init *init, int idx)
 	rows = 0;
 	while (init->in_cnt[idx])
 	{
-		if (!check_empty_line(init->in_cnt[idx]))
-			rows++;
+		rows++;
 		idx++;
 	}
 	return (rows);
@@ -42,28 +41,18 @@ static int	check_first_line(char *str)
 	return (1);
 }
 
-int	check_map(t_init *init, int idx)
+int	map_builder(t_init *init, int idx)
 {
-	int	i;
-
 	while (check_empty_line(init->in_cnt[idx]))
 		idx++;
 	if (!check_first_line(init->in_cnt[idx]))
 		return (0);
-	init->map->map = malloc(sizeof(char *) * get_map_rows(init, idx) + 1);
+	init->map->height = get_map_rows(init, idx);
+	init->map->map = malloc(sizeof(char *) * init->map->height + 1);
 	if (!init->map->map)
 		ft_puterr_fd("Error\nNot enough memory available", 2, 1);
-	i = 0; // If map_normalizer works, it must be deleted.
-	// while (init->in_cnt[idx])
-	// {
-	// 	if (!check_empty_line(init->in_cnt[idx]))
-	// 	{
-	// 		init->map->map[i] = ft_strdup(init->in_cnt[idx]);
-	// 		i++;
-	// 	}
-	// 	idx++;
-	// }
-	// init->map->map[i] = NULL;
 	map_normalizer(init, idx);
+	print_incnt(init); // TEMPORAL CHECKER FUNCTION!
+	map_checker(init);
 	return (1);
 }

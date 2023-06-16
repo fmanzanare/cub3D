@@ -17,7 +17,7 @@ static void	map_parser(t_init *init)
 			i++;
 			continue ;
 		}
-		else if (check_map(init, i))
+		else if (map_builder(init, i))
 			break;
 		i++;
 	}
@@ -25,7 +25,7 @@ static void	map_parser(t_init *init)
 
 /* ******************************************** */
 // TEMPORAL CHECKER FUNCTION!!!
-static void	print_incnt(t_init *init)
+void	print_incnt(t_init *init)
 {
 	int	i;
 
@@ -77,5 +77,5 @@ void	map_reader(t_init *init)
 		j++;
 	}
 	map_parser(init);
-	print_incnt(init); // TEMPORAL CHECKER FUNCTION!
+	//print_incnt(init); // TEMPORAL CHECKER FUNCTION!
 }

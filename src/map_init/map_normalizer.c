@@ -21,7 +21,6 @@ static int	get_max_row(t_init *init, int idx)
 
 void	map_normalizer(t_init *init, int idx)
 {
-	int		row_len;
 	int		col;
 	int		row;
 	int		aux_idx;
@@ -29,13 +28,13 @@ void	map_normalizer(t_init *init, int idx)
 	aux_idx = 0;
 	col = 0;
 	row = 0;
-	row_len = get_max_row(init, idx);
+	init->map->width = get_max_row(init, idx);
 	while (init->in_cnt[idx])
 	{
 		col = 0;
 		aux_idx = 0;
-		init->map->map[row] = malloc(sizeof(char) * (row_len + 1));
-		while (col < (row_len - 1))
+		init->map->map[row] = malloc(sizeof(char) * (init->map->width + 1));
+		while (col < (init->map->width - 1))
 		{
 			if (!init->in_cnt[idx][aux_idx])
 			{
