@@ -23,7 +23,7 @@ void	ft_rotation(mlx_key_data_t keydata, t_rc *data)
 		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
 		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
 	}
-	else if (keydata.key == MLX_KEY_RIGHT
+	if (keydata.key == MLX_KEY_RIGHT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		data->player.alpha += ALPHA_INC;
@@ -32,11 +32,10 @@ void	ft_rotation(mlx_key_data_t keydata, t_rc *data)
 		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
 		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
 	}
-	data->img_h->instances[0].x = data->player.x + data->player.dx;
-	data->img_h->instances[0].y = data->player.y + data->player.dy;
 		// printf("dx: %f, dy: %f, x: %f, y: %f, alpha: %f\n", data->player.dx, data->player.dy,
 		// 	data->player.x, data->player.y, data->player.alpha);
 }
+
 
 int	is_wall(double py, double px) {
 	int	x;
@@ -50,14 +49,16 @@ int	is_wall(double py, double px) {
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_rc	*data;
+	int	t;
 
+	t = -1;
 	data = (t_rc *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
 	{
 		mlx_terminate(data->mlx);
 		exit(0);
 	}
-	else if (keydata.key == MLX_KEY_W
+	if (keydata.key == MLX_KEY_W
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		if (!is_wall(data->player.y, data->player.x + data->player.dx))
@@ -67,7 +68,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		data->img_p->instances[0].x = data->player.x;
 		data->img_p->instances[0].y = data->player.y;
 	}
-	else if (keydata.key == MLX_KEY_S
+	if (keydata.key == MLX_KEY_S
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		if (!is_wall(data->player.y, data->player.x - data->player.dx))
@@ -77,17 +78,17 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		data->img_p->instances[0].x = data->player.x;
 		data->img_p->instances[0].y = data->player.y;
 	}
-	else if (keydata.key == MLX_KEY_A
+	if (keydata.key == MLX_KEY_A
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		if (!is_wall(data->player.y, data->player.x + data->player.dy))
-			data->player.x += data->player.dy;
+			data->player.x += data->player.dy ;
 		if (!is_wall(data->player.y - data->player.dx, data->player.x))
 			data->player.y -= data->player.dx;
 		data->img_p->instances[0].y = data->player.y;	
 		data->img_p->instances[0].x = data->player.x;
 	}
-	else if (keydata.key == MLX_KEY_D
+	if (keydata.key == MLX_KEY_D
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		if (!is_wall(data->player.y, data->player.x - data->player.dy))
@@ -98,24 +99,24 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		data->img_p->instances[0].x = data->player.x;
 	}
 	// cabeza del jugador
-	data->img_h->instances[0].x = data->player.x + data->player.dx;
-	data->img_h->instances[0].y = data->player.y + data->player.dy;
 	ft_rotation(keydata, data);
+	memset(data->img_h->pixels, 0,data->img_h->width * data->img_h->height * 4 );
+	while (t++ < MAP_WIDTH && !is_wall(data->player.y + 2 + t * (data->player.dy/MULT_DELTA), data->player.x + 2 + t * (data->player.dx/MULT_DELTA)))
+		mlx_put_pixel(data->img_h, data->player.x + 2 + t * (data->player.dx/MULT_DELTA), (data->player.y + 2) + t * (data->player.dy/MULT_DELTA), 0xFF00FFFF);
 }
 
 void	ft_print_player(t_rc *data)
 {
 	int	*pointer;
 	int	p;
-
 	p = 0; // iterador
 	pointer = (int *)data->img_p->pixels;
 	while ((unsigned int)p < data->img_p->width * data->img_p->height)
 		pointer[p++] = 0xFF00FFFF;
-	p = 0; // iterador
-	pointer = (int *)data->img_h->pixels;
-	while ((unsigned int)p < data->img_h->width * data->img_h->height)
-		pointer[p++] = 0xf549b0ff;
+	// p = 0; // iterador
+	// pointer = (int *)data->img_h->pixels;
+	// while ((unsigned int)p < data->img_h->width * data->img_h->height)
+	// 	pointer[p++] = 0xf549b0ff;
 }
 
 void	ft_init(t_rc *data)
@@ -123,8 +124,7 @@ void	ft_init(t_rc *data)
 	// init de player
 	data->img_p = mlx_new_image(data->mlx, P_SIZE, P_SIZE);
 	memset(data->img_p->pixels, 255, data->img_p->width * data->img_p->height * 4);
-	data->img_h = mlx_new_image(data->mlx, P_SIZE/2, P_SIZE/2);
-	memset(data->img_h->pixels, 126, data->img_h->width * data->img_h->height * 4);
+	data->img_h = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
 	data->player.alpha = 0;
 	data->player.x = 120;
 	data->player.y = 150;
@@ -180,7 +180,7 @@ int32_t	main(void)
 	ft_print_minimap(&data);
 	mlx_image_to_window(data.mlx, data.img_map, 0, 0);
 	mlx_image_to_window(data.mlx, data.img_p, data.player.x - 4, data.player.y - 4);
-	mlx_image_to_window(data.mlx, data.img_h, data.player.x, data.player.y);
+	mlx_image_to_window(data.mlx, data.img_h, 0, 0);
 	mlx_key_hook(data.mlx, &ft_key_hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
