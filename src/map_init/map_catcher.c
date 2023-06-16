@@ -52,7 +52,6 @@ int	map_builder(t_init *init, int idx)
 	if (!init->map->map)
 		ft_puterr_fd("Error\nNot enough memory available", 2, 1);
 	map_normalizer(init, idx);
-	print_incnt(init); // TEMPORAL CHECKER FUNCTION!
 	map_checker(init);
 	return (1);
 }

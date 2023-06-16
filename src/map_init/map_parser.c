@@ -42,7 +42,9 @@ void	print_incnt(t_init *init)
 	printf("East tex: %s\n", init->map->e_tex);
 	printf("\n");
 	printf("F color: %s\n", init->f_rgb);
+	printf("F hex color: 0x%X\n", init->map->f_hex);
 	printf("C color: %s\n", init->c_rgb);
+	printf("C hex color: 0x%X\n", init->map->c_hex);
 	printf("\n");
 	i = 0;
 	while (init->map->map[i])
@@ -77,5 +79,6 @@ void	map_reader(t_init *init)
 		j++;
 	}
 	map_parser(init);
-	//print_incnt(init); // TEMPORAL CHECKER FUNCTION!
+	get_colors(init);
+	print_incnt(init); // TEMPORAL CHECKER FUNCTION!
 }

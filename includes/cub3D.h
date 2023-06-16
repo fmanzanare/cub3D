@@ -51,5 +51,6 @@ int		map_builder(t_init *init, int idx);
 void	map_normalizer(t_init *init, int idx);
 void	map_checker(t_init *init);
 void	print_incnt(t_init *init);
+void	get_colors(t_init *init);
 
 #endif
