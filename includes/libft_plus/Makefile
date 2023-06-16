@@ -6,7 +6,7 @@
 #    By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/23 12:47:02 by fmanzana          #+#    #+#              #
-#    Updated: 2023/04/30 20:49:44 by fmanzana         ###   ########.fr        #
+#    Updated: 2023/06/15 13:30:15 by fmanzana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC = ft_isalpha.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
+		ft_puterr_fd.c \
 		get_next_line.c \
 		get_next_line_bonus.c \
 		get_next_line_utils.c \
