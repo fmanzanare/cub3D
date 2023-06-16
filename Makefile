@@ -2,12 +2,12 @@ define HEADER
                               Project
                                 by
                     ObiWanFernando & cooperMaker
- ________      ___  ___      ________      ________      ________     
-|\   ____\    |\  \|\  \    |\   __  \    |\_____  \    |\   ___ \ 
-\ \  \___|    \ \  \\\\\  \   \ \  \|\ /_   \|____|\ /_   \ \  \_|\ \ 
- \ \  \        \ \  \\\\\  \   \ \   __  \        \|\  \   \ \  \ \\\ \  
-  \ \  \____    \ \  \\\\\  \   \ \  \|\  \      __\_\  \   \ \  \_\\\ \ 
-   \ \_______\   \ \_______\   \ \_______\    |\_______\   \ \_______\ 
+ ________      ___  ___      ________      ________      ________
+|\   ____\    |\  \|\  \    |\   __  \    |\_____  \    |\   ___ \
+\ \  \___|    \ \  \\\\\  \   \ \  \|\ /_   \|____|\ /_   \ \  \_|\ \
+ \ \  \        \ \  \\\\\  \   \ \   __  \        \|\  \   \ \  \ \\\ \
+  \ \  \____    \ \  \\\\\  \   \ \  \|\  \      __\_\  \   \ \  \_\\\ \
+   \ \_______\   \ \_______\   \ \_______\    |\_______\   \ \_______\
     \|_______|    \|_______|    \|_______|    \|_______|    \|_______|
 
 endef
@@ -19,7 +19,7 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g
 COLOR = \033[1;32m
 
-SRCS_MAP = $(addprefix ./src/map_init/, inputs_checker.c map_init.c map_parser.c textures_catcher.c colors_catcher.c map_catcher.c map_normalizer.c map_checker.c color_converter.c)
+SRCS_MAP = $(addprefix ./src/parser/, inputs_checker.c map_init.c map_parser.c textures_catcher.c colors_catcher.c map_catcher.c map_normalizer.c map_checker.c color_converter.c)
 SRCS_RCASTER = $(addprefix ./src/raycasting/, raycaster.c)
 
 OBJS_RCASTER = $(addsuffix .o, $(notdir $(basename $(SRCS_RCASTER))))

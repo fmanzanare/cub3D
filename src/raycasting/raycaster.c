@@ -85,7 +85,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 			data->player.x += data->player.dy ;
 		if (!is_wall(data->player.y - data->player.dx, data->player.x))
 			data->player.y -= data->player.dx;
-		data->img_p->instances[0].y = data->player.y;	
+		data->img_p->instances[0].y = data->player.y;
 		data->img_p->instances[0].x = data->player.x;
 	}
 	if (keydata.key == MLX_KEY_D
@@ -95,7 +95,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 			data->player.x -= data->player.dy;
 		if (!is_wall(data->player.y + data->player.dx, data->player.x))
 			data->player.y += data->player.dx;
-		data->img_p->instances[0].y = data->player.y;	
+		data->img_p->instances[0].y = data->player.y;
 		data->img_p->instances[0].x = data->player.x;
 	}
 	// cabeza del jugador
@@ -169,10 +169,12 @@ void	ft_print_minimap(t_rc *data)
 	}
 }
 
-int32_t	main(void)
+int32_t	main(int argc, char **argv)
 {
 	t_rc		data;
+	t_init		init;
 
+	arg_checker(argc, argv, &init);
 	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data.mlx)
 		return (EXIT_FAILURE);
