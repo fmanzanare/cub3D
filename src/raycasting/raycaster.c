@@ -17,20 +17,20 @@ void	ft_rotation(mlx_key_data_t keydata, t_rc *data)
 	if (keydata.key == MLX_KEY_LEFT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		data->player.alpha -= 0.3;
+		data->player.alpha -= ALPHA_INC;
 		if (data->player.alpha < 0)
 			data->player.alpha += 2 * PI;
-		data->player.dx = cos(data->player.alpha) * 5;
-		data->player.dy = sin(data->player.alpha) * 5;
+		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
+		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
 	}
 	else if (keydata.key == MLX_KEY_RIGHT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		data->player.alpha += 0.3;
+		data->player.alpha += ALPHA_INC;
 		if (data->player.alpha > 2 * PI)
 			data->player.alpha -= 2 * PI;
-		data->player.dx = cos(data->player.alpha) * 5;
-		data->player.dy = sin(data->player.alpha) * 5;
+		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
+		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
 	}
 	data->img_h->instances[0].x = data->player.x + data->player.dx;
 	data->img_h->instances[0].y = data->player.y + data->player.dy;
@@ -77,12 +77,26 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		data->img_p->instances[0].x = data->player.x;
 		data->img_p->instances[0].y = data->player.y;
 	}
-	// else if (keydata.key == MLX_KEY_A
-	// 	&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	// 	data->img_p->instances[0].x -= 5;
-	// else if (keydata.key == MLX_KEY_D
-	// 	&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	// 	data->img_p->instances[0].x += 5;
+	else if (keydata.key == MLX_KEY_A
+		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
+		if (!is_wall(data->player.y, data->player.x + data->player.dy))
+			data->player.x += data->player.dy;
+		if (!is_wall(data->player.y - data->player.dx, data->player.x))
+			data->player.y -= data->player.dx;
+		data->img_p->instances[0].y = data->player.y;	
+		data->img_p->instances[0].x = data->player.x;
+	}
+	else if (keydata.key == MLX_KEY_D
+		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
+		if (!is_wall(data->player.y, data->player.x - data->player.dy))
+			data->player.x -= data->player.dy;
+		if (!is_wall(data->player.y + data->player.dx, data->player.x))
+			data->player.y += data->player.dx;
+		data->img_p->instances[0].y = data->player.y;	
+		data->img_p->instances[0].x = data->player.x;
+	}
 	// cabeza del jugador
 	data->img_h->instances[0].x = data->player.x + data->player.dx;
 	data->img_h->instances[0].y = data->player.y + data->player.dy;

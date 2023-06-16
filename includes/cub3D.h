@@ -15,6 +15,8 @@
 # define MAP_X		8
 # define MAP_Y		8
 # define PI			3.14159265359
+# define ALPHA_INC	0.3
+# define MULT_DELTA	10
 
 typedef struct s_player{
 	double	x;
