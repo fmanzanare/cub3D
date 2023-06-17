@@ -148,7 +148,7 @@ void	ft_print_minimap(t_rc *data)
 	{
 		while (x < MAP_WIDTH && (x / data->sq_size_x) < data->map->width)
 		{
-			printf("y: %d, x: %d\n", y / data->sq_size_y, x / data->sq_size_x);
+			//printf("y: %d, x: %d\n", y / data->sq_size_y, x / data->sq_size_x);
 			color = data->map->map[y / data->sq_size_y][x / data->sq_size_x] == '1';
 			if (color)
 				mlx_put_pixel(data->img_map, x, y, 0xFFFFFFFF);

@@ -63,6 +63,8 @@ typedef struct s_init {
 }	t_init;
 
 //*************************** FUNCTIONS **************************************//
+
+// PARSER
 void	arg_checker(int argc, char **argv, t_init *init);
 void	init_vars(t_init *init);
 void	map_reader(t_init *init);
@@ -74,5 +76,6 @@ void	map_normalizer(t_init *init, int idx);
 void	map_checker(t_init *init);
 void	print_incnt(t_init *init);
 void	get_colors(t_init *init);
+void	check_texture_files(t_init *init);
 
 #endif

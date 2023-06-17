@@ -21,6 +21,7 @@ static void	map_parser(t_init *init)
 			break;
 		i++;
 	}
+	//check_texture_files(init);
 }
 
 /* ******************************************** */

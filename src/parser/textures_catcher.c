@@ -1,5 +1,17 @@
 #include "../../includes/cub3D.h"
 
+void	check_texture_files(t_init *init)
+{
+	if (open(init->map->n_tex, O_RDONLY) < 0)
+		ft_puterr_fd("Error\nNorth texture file not found.\n", 2, 1);
+	else if (open(init->map->s_tex, O_RDONLY) < 0)
+		ft_puterr_fd("Error\nSouth texture file not found.\n", 2, 1);
+	else if (open(init->map->w_tex, O_RDONLY) < 0)
+		ft_puterr_fd("Error\nWest texture file not found.\n", 2, 1);
+	else if (open(init->map->e_tex, O_RDONLY) < 0)
+		ft_puterr_fd("Error\nEast texture file not found.\n", 2, 1);
+}
+
 char	*get_tex_or_color(char *str)
 {
 	char	*ret;
