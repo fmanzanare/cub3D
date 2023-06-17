@@ -16,13 +16,16 @@
 # define MAP_HEIGHT	512/2
 # define PI			3.14159265359
 # define ALPHA_INC	0.1
-# define MULT_DELTA	5
+# define MULT_DELTA	2
+# define INFINITE	1e30
 
 typedef struct s_player{
 	double	x;
 	double	y;
 	double	dy;
 	double	dx;
+	double	px;
+	double	py;
 	double	alpha;
 }	t_player;
 
@@ -40,6 +43,8 @@ typedef struct s_map {
 
 typedef struct s_rc{
 	mlx_t		*mlx;
+	mlx_image_t	*img_bg;
+	mlx_image_t	*img_world;
 	mlx_image_t	*img_p;
 	mlx_image_t	*img_map;
 	mlx_image_t	*img_h;
@@ -77,6 +82,9 @@ void	map_checker(t_init *init);
 void	print_incnt(t_init *init);
 void	get_colors(t_init *init);
 void	check_texture_files(t_init *init);
-void	world_builder(int i);
+
+// WORLD
+void	world_builder(t_rc *data);
+void	raycast(t_rc *data);
 
 #endif

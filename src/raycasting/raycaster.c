@@ -97,6 +97,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 		ft_is_wall(data, data->player.y + data->player.dx, data->player.x - data->player.dy, 'D');
 	ft_rotation(keydata, data);
+	raycast(data);
 	// cabeza del jugador
 	memset(data->img_h->pixels, 0,data->img_h->width * data->img_h->height * 4 );
 	while (t++ < MAP_WIDTH && !is_wall(data, data->player.y + 2 + t * (data->player.dy/MULT_DELTA), data->player.x + 2 + t * (data->player.dx/MULT_DELTA)))
@@ -167,11 +168,15 @@ int32_t	main(int argc, char **argv)
 	t_init		init;
 
 	arg_checker(argc, argv, &init);
-	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);
 	if (!data.mlx)
 		return (EXIT_FAILURE);
 	ft_init(&data, &init);
 	ft_print_minimap(&data);
+	world_builder(&data);
+	raycast(&data);
+	mlx_image_to_window(data.mlx, data.img_bg, 0, 0);
+	mlx_image_to_window(data.mlx, data.img_world, 0, 0);
 	mlx_image_to_window(data.mlx, data.img_map, 0, 0);
 	mlx_image_to_window(data.mlx, data.img_p, data.player.x - 4, data.player.y - 4);
 	mlx_image_to_window(data.mlx, data.img_h, 0, 0);
