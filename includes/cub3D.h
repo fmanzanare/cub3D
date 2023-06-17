@@ -12,6 +12,7 @@
 # define WIDTH		1024
 # define HEIGHT		512
 # define P_SIZE		8
+# define TOT_SQ		8
 # define MAP_WIDTH	1024/4
 # define MAP_HEIGHT	512/2
 # define PI			3.14159265359
@@ -19,6 +20,8 @@
 # define MULT_DELTA	5
 
 typedef struct s_player{
+	int		arr_x;
+	int		arr_y;
 	double	x;
 	double	y;
 	double	dy;
@@ -75,4 +78,7 @@ void	map_checker(t_init *init);
 void	print_incnt(t_init *init);
 void	get_colors(t_init *init);
 
+void	ft_key_hook(mlx_key_data_t keydata, void *param);
+void	ft_init(t_rc *data, t_init *init);
+void	ft_print_minimap(t_rc *data);
 #endif
