@@ -77,5 +77,6 @@ void	map_checker(t_init *init);
 void	print_incnt(t_init *init);
 void	get_colors(t_init *init);
 void	check_texture_files(t_init *init);
+void	world_builder(int i);
 
 #endif
