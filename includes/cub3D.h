@@ -18,8 +18,8 @@
 # define ALPHA_INC	0.1
 # define MULT_DELTA	2
 # define INFINITE	1e30
-# define ROT_SPEED_LEFT		-0.08726646259971647884618453842443
-# define ROT_SPEED_RIGHT	0.08726646259971647884618453842443
+# define ROT_SPEED_LEFT		-0.1
+# define ROT_SPEED_RIGHT	0.1
 
 typedef struct s_player3d
 {
@@ -49,6 +49,11 @@ typedef struct s_player3d
 	int		draw_start;
 	int		draw_end;
 	int		color;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
 }	t_player3d;
 
 
@@ -74,17 +79,22 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_rc{
-	mlx_t		*mlx;
-	mlx_image_t	*img_bg;
-	mlx_image_t	*img_world;
-	mlx_image_t	*img_p;
-	mlx_image_t	*img_map;
-	mlx_image_t	*img_h;
-	t_player	player;
-	t_player3d	p3d;
-	t_map		*map;
-	int			sq_size_x;
-	int			sq_size_y;
+	mlx_t			*mlx;
+	mlx_image_t		*img_bg;
+	mlx_image_t		*img_world;
+	mlx_texture_t	*n_tex;
+	mlx_texture_t	*s_tex;
+	mlx_texture_t	*w_tex;
+	mlx_texture_t	*e_tex;
+	mlx_texture_t	*texs[4];
+	mlx_image_t		*img_p;
+	mlx_image_t		*img_map;
+	mlx_image_t		*img_h;
+	t_player		player;
+	t_player3d		p3d;
+	t_map			*map;
+	int				sq_size_x;
+	int				sq_size_y;
 }	t_rc;
 
 typedef struct s_init {
@@ -119,5 +129,6 @@ void	check_texture_files(t_init *init);
 // WORLD
 void	world_builder(t_rc *data);
 void	raycast(t_rc *data);
+void	put_textures(t_rc *data, int x);
 
 #endif

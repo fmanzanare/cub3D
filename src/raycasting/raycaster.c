@@ -129,7 +129,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	ft_rotation(keydata, data);
 	raycast(data);
 	// cabeza del jugador
-	memset(data->img_h->pixels, 0,data->img_h->width * data->img_h->height * 4 );
+	memset(data->img_h->pixels, 0, data->img_h->width * data->img_h->height * 4 );
 	while (t++ < MAP_WIDTH && !is_wall(data, data->player.y + 2 + t * (data->player.dy/MULT_DELTA), data->player.x + 2 + t * (data->player.dx/MULT_DELTA)))
 		mlx_put_pixel(data->img_h, data->player.x + 2 + t * (data->player.dx/MULT_DELTA), (data->player.y + 2) + t * (data->player.dy/MULT_DELTA), 0xFF00FFFF);
 }
@@ -211,6 +211,10 @@ int32_t	main(int argc, char **argv)
 	data.p3d.py = -0.66;
 	data.p3d.dir_x = -1;
 	data.p3d.dir_y = 0;
+	data.texs[0] = mlx_load_png(data.map->n_tex);
+	data.texs[1] = mlx_load_png(data.map->s_tex);
+	data.texs[2] = mlx_load_png(data.map->w_tex);
+	data.texs[3] = mlx_load_png(data.map->e_tex);
 	raycast(&data);
 	mlx_image_to_window(data.mlx, data.img_bg, 0, 0);
 	mlx_image_to_window(data.mlx, data.img_world, 0, 0);

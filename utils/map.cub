@@ -1,13 +1,13 @@
-	 	 	NO 	 	 	./ruta_a_la_textura_norte
+	 	 	NO 	 	 	./textures/GRAYWALL.png
 
-SO ./ruta_a_la_textura_sur
-
-
-   WE ./ruta_a_la_textura_oeste
+SO ./textures/BIGBRICKS.png
 
 
+   WE ./textures/CASTLEBRICKS.png
 
-EA ./ruta_a_la_textura_este
+
+
+EA ./textures/DUNGEONBRICKS.png
 
 
 
