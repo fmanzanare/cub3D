@@ -18,14 +18,46 @@
 # define ALPHA_INC	0.1
 # define MULT_DELTA	2
 # define INFINITE	1e30
+# define ROT_SPEED_LEFT		-0.08726646259971647884618453842443
+# define ROT_SPEED_RIGHT	0.08726646259971647884618453842443
+
+typedef struct s_player3d
+{
+	double	pos_x;
+	double	pos_y;
+	int		map_x;
+	int		map_y;
+	double	old_dir_x;
+	double	dir_x;
+	double	dir_y;
+	double	camera_x;
+	double	px;
+	double	py;
+	double	old_plane_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		color;
+}	t_player3d;
+
 
 typedef struct s_player{
 	double	x;
 	double	y;
 	double	dy;
 	double	dx;
-	double	px;
-	double	py;
+	double	old_px;
 	double	alpha;
 }	t_player;
 
@@ -49,6 +81,7 @@ typedef struct s_rc{
 	mlx_image_t	*img_map;
 	mlx_image_t	*img_h;
 	t_player	player;
+	t_player3d	p3d;
 	t_map		*map;
 	int			sq_size_x;
 	int			sq_size_y;
