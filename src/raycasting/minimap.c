@@ -1,33 +1,41 @@
 #include "../../includes/cub3D.h"
 
-void	ft_set_minimap_color(t_rc *data, int x, int y, int *color)
+static int	ft_set_pixel_color(t_rc *data, int x, int y)
 {
-	if (x < data->map->width * PIX_SQ && y < data->map->height * PIX_SQ)
-		*color = data->map->map[y / PIX_SQ][x / PIX_SQ] == '1';
+	int	max_width;
+	int	max_heigth;
+	int	y_map;
+	int	x_map;
+
+	y_map = y / PIX_SQ;
+	x_map = x / PIX_SQ;
+	max_width = data->map->width * PIX_SQ;
+	max_heigth = data->map->height * PIX_SQ;
+	if (((x_map * PIX_SQ) < max_width && (x_map * PIX_SQ) > 0)
+		&& ((y_map * PIX_SQ) > 0 && (y_map * PIX_SQ) < max_heigth))
+		return (data->map->map[y_map][x_map] == '1'
+		|| data->map->map[y_map][x_map] == '.');
 	else
-		*color = 1;
+		return (1);
 }
 
 void	ft_print_minimap(t_rc *data)
 {
-	int	y;
-	int	y_aux;
-	int	x;
-	int	x_aux;
-	int	color;
+	double	y;
+	double	y_aux;
+	double	x;
+	double	x_aux;
 
-	color = 0;
-	y = data->player.y + (PIX_SQ / 2);
-	x = data->player.x + (PIX_SQ / 2);
+	y = data->player.y - MAP_HEIGHT / 2;
+	x = data->player.x - MAP_WIDTH / 2;
 	y_aux = y;
 	x_aux = x;
+	// printf("origin y: %f, x: %f\n", y, x);
 	while(y - y_aux < MAP_HEIGHT)
 	{
 		while (x - x_aux < MAP_WIDTH)
 		{
-			// printf("x %d\n", x / data->sq_size_x);
-			ft_set_minimap_color(data, x, y, &color);
-			if (color)
+			if (ft_set_pixel_color(data, x, y))
 				mlx_put_pixel(data->img_map, x - x_aux, y - y_aux, 0xFFFFFFFF);
 			else
 				mlx_put_pixel(data->img_map, x - x_aux, y - y_aux, 0x000000FF);

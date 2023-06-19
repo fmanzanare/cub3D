@@ -18,7 +18,7 @@ int32_t	main(int argc, char **argv)
 	t_init		init;
 
 	arg_checker(argc, argv, &init);
-	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	data.mlx = mlx_init(MAP_WIDTH, MAP_HEIGHT, "MLX42", true);
 	if (!data.mlx)
 		return (EXIT_FAILURE);
 	ft_init(&data, &init);

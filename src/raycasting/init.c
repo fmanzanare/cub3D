@@ -35,8 +35,9 @@ void	ft_player_finder(t_rc *data)
 		{
 			if (data->map->map[y][x] > 'A' && data->map->map[y][x] < 'Z')
 			{
-				data->player.x = (x * PIX_SQ) - (PIX_SQ / 2);
-				data->player.y = (y * PIX_SQ) - (PIX_SQ / 2);
+				data->player.x = (x * PIX_SQ) + (PIX_SQ / 2);
+				data->player.y = (y * PIX_SQ) + (PIX_SQ / 2);
+				// printf("origin y: %f, x: %f\n", data->player.y, data->player.x);
 				ft_orientation(data, data->map->map[y][x]);
 			}
 			x++;
