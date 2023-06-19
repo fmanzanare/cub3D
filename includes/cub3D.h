@@ -13,6 +13,7 @@
 # define HEIGHT		512
 # define P_SIZE		8
 # define TOT_SQ		8
+# define PIX_SQ		32
 # define MAP_WIDTH	1024/4
 # define MAP_HEIGHT	512/2
 # define PI			3.14159265359
@@ -28,7 +29,7 @@ typedef struct s_player{
 	double	dx;
 	double	alpha;
 }	t_player;
-
+// height y width empiezan en 1
 typedef struct s_map {
 	char			**map;
 	int				height;
