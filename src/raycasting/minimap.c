@@ -11,11 +11,12 @@ static int	ft_set_pixel_color(t_rc *data, int x, int y)
 	x_map = x / PIX_SQ;
 	max_width = data->map->width;
 	max_heigth = data->map->height;
-	// printf("1origin y: %d, x: %d\n", y_map, x_map);
-	if ((x_map < max_width && x_map > 0)
-		&& (y_map > 0 && y_map < max_heigth))
+	if ((x_map < max_width && x_map >= 0)
+		&& (y_map >= 0 && y_map < max_heigth))
+	{
 		return (data->map->map[y_map][x_map] == '1'
-		|| data->map->map[y_map][x_map] == '.');
+		|| data->map->map[y_map][x_map] == '.' ||  data->map->map[y_map][x_map] == '\0');
+	}
 	else
 		return (1);
 }
