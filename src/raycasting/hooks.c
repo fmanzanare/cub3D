@@ -104,10 +104,11 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	ft_rotation(keydata, data);
 	// cabeza del jugador
 	memset(data->img_h->pixels, 0,data->img_h->width * data->img_h->height * 4 );
-	while (t++ < MAP_WIDTH && !is_wall(data, MAP_WIDTH / 2 + t * (data->player.dy/MULT_DELTA), MAP_WIDTH / 2 + t * (data->player.dx/MULT_DELTA)))
+	while (t++ < MAP_WIDTH && !is_wall(data, data->player.y + 2 + t * (data->player.dy/MULT_DELTA), data->player.x + 2 + t * (data->player.dx/MULT_DELTA)))
 	{
-		// printf("x: %f, y: %f\n",  MAP_WIDTH / 2 + 2 + t * (data->player.dx/MULT_DELTA), MAP_HEIGHT / 2 + 2 + t * (data->player.dy/MULT_DELTA));
-		mlx_put_pixel(data->img_h, MAP_WIDTH / 2 + 2 + t * (data->player.dx/MULT_DELTA), MAP_HEIGHT / 2 + 2 + t * (data->player.dy/MULT_DELTA), 0xFF00FFFF);
+			if (MAP_WIDTH / 2 + 2 + t * (data->player.dx/MULT_DELTA) < MAP_WIDTH && MAP_WIDTH / 2 + 2 + t * (data->player.dx/MULT_DELTA) < MAP_WIDTH > 0
+				&& MAP_HEIGHT / 2 + 2 + t * (data->player.dy/MULT_DELTA) < MAP_HEIGHT && MAP_HEIGHT / 2 + 2 + t * (data->player.dy/MULT_DELTA) > 0)
+				mlx_put_pixel(data->img_h, MAP_WIDTH / 2 + 2 + t * (data->player.dx/MULT_DELTA), MAP_HEIGHT / 2 + 2 + t * (data->player.dy/MULT_DELTA), 0xFF00FFFF);
 	}
 	ft_print_minimap(data);
 }
