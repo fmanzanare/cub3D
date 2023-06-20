@@ -3,15 +3,9 @@
 static void	check_dup_colors(t_init *init, int opc)
 {
 	if (opc == 1 && init->f_rgb)
-	{
-		// free_ft
-		ft_puterr_fd("Error\nMore than one color for Floor.\n", 2, 1);
-	}
+		ft_errexit(init, "Error\nMore than one color for Floor.\n");
 	else if (opc == 2 && init->c_rgb)
-	{
-		// free_ft
-		ft_puterr_fd("Error\nMore than one color for Ceiling.\n", 2, 1);
-	}
+		ft_errexit(init, "Error\nMore than one color for Ceiling.\n");
 }
 
 static int	check_cf(t_init *init, char *str)

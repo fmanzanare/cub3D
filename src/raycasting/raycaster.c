@@ -204,11 +204,17 @@ void	ft_print_minimap(t_rc *data)
 	}
 }
 
+// void	leaks(void)
+// {
+// 	system("leaks -q cub3D");
+// }
+
 int32_t	main(int argc, char **argv)
 {
 	t_rc		data;
 	t_init		init;
 
+	// atexit(leaks);
 	arg_checker(argc, argv, &init);
 	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);
 	if (!data.mlx)

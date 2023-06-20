@@ -21,10 +21,12 @@ COLOR = \033[1;32m
 SRCS_MAP = $(addprefix ./src/parser/, inputs_checker.c map_init.c map_parser.c textures_catcher.c colors_catcher.c map_catcher.c map_normalizer.c map_checker.c color_converter.c)
 SRCS_RCASTER = $(addprefix ./src/raycasting/, raycaster.c)
 SRCS_WORLD_BUILDER = $(addprefix ./src/world_builder/, world_builder.c raycast.c textures.c)
+SRCS_CUB3D_UTILS = $(addprefix ./src/cub3d_utils/, free_fts.c ft_errexit.c)
 
 OBJS_RCASTER = $(addsuffix .o, $(notdir $(basename $(SRCS_RCASTER))))
 OBJS_MAP = $(addsuffix .o, $(notdir $(basename $(SRCS_MAP))))
 OBJS_WORLD_BUILDER = $(addsuffix .o, $(notdir $(basename $(SRCS_WORLD_BUILDER))))
+OBJS_CUB3D_UTILS = $(addsuffix .o, $(notdir $(basename $(SRCS_CUB3D_UTILS))))
 
 LIBFT = ./includes/libft_plus/libft.a
 LIBFT_LINK = -L./includes/libft_plus -lft
@@ -44,8 +46,11 @@ $(OBJS_MAP):	$(SRCS_MAP)
 $(OBJS_WORLD_BUILDER):	$(SRCS_WORLD_BUILDER)
 			@$(CC) $(CFLAGS) -c $(SRCS_WORLD_BUILDER) $(MLX_I)
 
-$(NAME):	$(OBJS_RCASTER) $(OBJS_MAP) $(OBJS_WORLD_BUILDER) $(LIBFT) $(MLX)
-			@$(CC) $(CFLAGS) $(OBJS_RCASTER) $(OBJS_MAP) $(OBJS_WORLD_BUILDER) $(MLX_L) $(GLFW_L) $(LIBFT_LINK) -o $(NAME)
+$(OBJS_CUB3D_UTILS):	$(SRCS_CUB3D_UTILS)
+			@$(CC) $(CFLAGS) -c $(SRCS_CUB3D_UTILS) $(MLX_I)
+
+$(NAME):	$(OBJS_RCASTER) $(OBJS_MAP) $(OBJS_WORLD_BUILDER) $(OBJS_CUB3D_UTILS) $(LIBFT) $(MLX)
+			@$(CC) $(CFLAGS) $(OBJS_RCASTER) $(OBJS_MAP) $(OBJS_WORLD_BUILDER) $(OBJS_CUB3D_UTILS) $(MLX_L) $(GLFW_L) $(LIBFT_LINK) -o $(NAME)
 			@echo "$(COLOR)$$HEADER"
 
 $(LIBFT):
@@ -57,7 +62,7 @@ $(MLX):
 re:			fclean all
 
 clean:
-			@rm -f $(OBJS_RCASTER) $(OBJS_MAP) $(OBJS_WORLD_BUILDER)
+			@rm -f $(OBJS_RCASTER) $(OBJS_MAP) $(OBJS_WORLD_BUILDER) $(OBJS_CUB3D_UTILS)
 			@make -C ./includes/libft_plus clean
 			@make -C ./MLX42 clean
 

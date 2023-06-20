@@ -3,13 +3,13 @@
 void	check_texture_files(t_init *init)
 {
 	if (open(init->map->n_tex, O_RDONLY) < 0)
-		ft_puterr_fd("Error\nNorth texture file not found.\n", 2, 1);
+		ft_errexit(init, "Error\nNorth texture file not found.\n");
 	else if (open(init->map->s_tex, O_RDONLY) < 0)
-		ft_puterr_fd("Error\nSouth texture file not found.\n", 2, 1);
+		ft_errexit(init, "Error\nSouth texture file not found.\n");
 	else if (open(init->map->w_tex, O_RDONLY) < 0)
-		ft_puterr_fd("Error\nWest texture file not found.\n", 2, 1);
+		ft_errexit(init, "Error\nWest texture file not found.\n");
 	else if (open(init->map->e_tex, O_RDONLY) < 0)
-		ft_puterr_fd("Error\nEast texture file not found.\n", 2, 1);
+		ft_errexit(init, "Error\nEast texture file not found.\n");
 }
 
 char	*get_tex_or_color(char *str)
@@ -35,25 +35,13 @@ char	*get_tex_or_color(char *str)
 static void	check_dup_textures(t_init *init, int opc)
 {
 	if (opc == 1 && init->map->n_tex)
-	{
-		// free_ft
-		ft_puterr_fd("Error\nMore than one texture for North.\n", 2, 1);
-	}
+		ft_errexit(init, "Error\nMore than one texture for North.\n");
 	else if (opc == 2 && init->map->s_tex)
-	{
-		// free_ft
-		ft_puterr_fd("Error\nMore than one texture for South.\n", 2, 1);
-	}
+		ft_errexit(init, "Error\nMore than one texture for South.\n");
 	if (opc == 3 && init->map->w_tex)
-	{
-		// free_ft
-		ft_puterr_fd("Error\nMore than one texture for West.\n", 2, 1);
-	}
+		ft_errexit(init, "Error\nMore than one texture for West.\n");
 	if (opc == 4 && init->map->e_tex)
-	{
-		// free_ft
-		ft_puterr_fd("Error\nMore than one texture for East.\n", 2, 1);
-	}
+		ft_errexit(init, "Error\nMore than one texture for East.\n");
 }
 
 static int	check_cardinal(t_init *init, char *str)

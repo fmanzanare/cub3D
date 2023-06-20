@@ -125,6 +125,11 @@ void	map_checker(t_init *init);
 void	print_incnt(t_init *init);
 void	get_colors(t_init *init);
 void	check_texture_files(t_init *init);
+void	free_matrix(char **arr);
+
+// CUB3D_UTILS
+void	struct_free_ft(t_init *init);
+void	ft_errexit(t_init *init, char *str);
 
 // WORLD
 void	world_builder(t_rc *data);
