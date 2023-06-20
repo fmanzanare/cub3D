@@ -87,7 +87,8 @@ void	raycast(t_rc *data)
 {
 	int		x;
 
-	memset(data->img_world->pixels, 0, data->img_world->width * data->img_world->height * 4); // Not allowed function!
+	ft_memset(data->img_world->pixels, 0, data->img_world->width
+		* data->img_world->height * 4);
 	x = 0;
 	while (x < WIDTH)
 	{

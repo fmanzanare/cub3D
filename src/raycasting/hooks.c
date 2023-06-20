@@ -65,7 +65,7 @@ static void	ft_is_wall(t_rc *data, double py, double px, char type)
 	int	x_index;
 	char **map = data->map->map;
 
-	y_index = (int)data->player.y / PIX_SQ; 
+	y_index = (int)data->player.y / PIX_SQ;
 	x_index = (int)data->player.x / PIX_SQ;
 	sum_y = (int)py / PIX_SQ;
 	sum_x = (int)px / PIX_SQ;
@@ -142,7 +142,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	ft_rotation(keydata, data);
 	raycast(data);
 	// cabeza del jugador
-	memset(data->img_h->pixels, 0,data->img_h->width * data->img_h->height * 4 );
+	ft_memset(data->img_h->pixels, 0,data->img_h->width * data->img_h->height * 4 );
 	while (t++ < MAP_WIDTH && !is_wall(data, data->player.y + 2 + t * (data->player.dy/MULT_DELTA), data->player.x + 2 + t * (data->player.dx/MULT_DELTA)))
 	{
 			if (MAP_WIDTH / 2 + 2 + t * (data->player.dx/MULT_DELTA) < MAP_WIDTH && MAP_WIDTH / 2 + 2 + t * (data->player.dx/MULT_DELTA) > 0

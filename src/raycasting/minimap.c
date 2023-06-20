@@ -15,7 +15,8 @@ static int	ft_set_pixel_color(t_rc *data, int x, int y)
 		&& (y_map >= 0 && y_map < max_heigth))
 	{
 		return (data->map->map[y_map][x_map] == '1'
-		|| data->map->map[y_map][x_map] == '.' ||  data->map->map[y_map][x_map] == '.');
+		|| data->map->map[y_map][x_map] == '.'
+		|| data->map->map[y_map][x_map] == '\0');
 	}
 	else
 		return (1);
@@ -32,7 +33,7 @@ void	ft_print_minimap(t_rc *data)
 	x = data->player.x - MAP_WIDTH / 2;
 	y_aux = y;
 	x_aux = x;
-	while(y - y_aux < MAP_HEIGHT)
+	while (y - y_aux < MAP_HEIGHT)
 	{
 		while (x - x_aux < MAP_WIDTH)
 		{

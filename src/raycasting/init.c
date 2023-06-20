@@ -4,6 +4,7 @@ static void	ft_print_player(t_rc *data)
 {
 	int	*pointer;
 	int	p;
+
 	p = 0;
 	pointer = (int *)data->img_p->pixels;
 	while ((unsigned int)p < data->img_p->width * data->img_p->height)
@@ -66,7 +67,8 @@ void	ft_init(t_rc *data, t_init *init)
 {
 	data->map = init->map;
 	data->img_p = mlx_new_image(data->mlx, P_SIZE, P_SIZE);
-	memset(data->img_p->pixels, 255, data->img_p->width * data->img_p->height * 4);
+	ft_memset(data->img_p->pixels, 255,
+		data->img_p->width * data->img_p->height * 4);
 	data->img_h = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
 	ft_player_finder(data);
 	data->player.dx = cos(data->player.alpha);
@@ -79,6 +81,7 @@ void	ft_init(t_rc *data, t_init *init)
 	data->p3d.pos_y = (data->player.y / PIX_SQ);
 	ft_print_player(data);
 	data->img_map = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
-	memset(data->img_map->pixels, 255, data->img_map->width * data->img_map->height * 4);
+	ft_memset(data->img_map->pixels, 255,
+		data->img_map->width * data->img_map->height * 4);
 	ft_print_minimap(data);
 }

@@ -33,31 +33,6 @@ static void	map_parser(t_init *init)
 	close_fds(init);
 }
 
-/* ******************************************** */
-// TEMPORAL CHECKER FUNCTION!!!
-void	print_incnt(t_init *init)
-{
-	int	i;
-
-	printf("North tex: %s\n", init->map->n_tex);
-	printf("South tex: %s\n", init->map->s_tex);
-	printf("West tex: %s\n", init->map->w_tex);
-	printf("East tex: %s\n", init->map->e_tex);
-	printf("\n");
-	printf("F color: %s\n", init->f_rgb);
-	printf("F hex color: 0x%X\n", init->map->f_hex);
-	printf("C color: %s\n", init->c_rgb);
-	printf("C hex color: 0x%X\n", init->map->c_hex);
-	printf("\n");
-	i = 0;
-	while (init->map->map[i])
-	{
-		printf("%s\n", init->map->map[i]);
-		i++;
-	}
-}
-/* ******************************************** */
-
 void	map_reader(t_init *init)
 {
 	char	tmp;
@@ -83,5 +58,4 @@ void	map_reader(t_init *init)
 	}
 	map_parser(init);
 	get_colors(init);
-	print_incnt(init); // TEMPORAL CHECKER FUNCTION!
 }
