@@ -17,8 +17,8 @@
 # define MAP_WIDTH	1024/4
 # define MAP_HEIGHT	512/2
 # define PI			3.14159265359
-# define ALPHA_INC	0.3
-# define MULT_DELTA	10
+# define ALPHA_INC	0.1
+# define MULT_DELTA	5
 
 typedef struct s_player{
 	int		arr_x;

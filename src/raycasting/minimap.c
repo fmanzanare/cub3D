@@ -9,10 +9,11 @@ static int	ft_set_pixel_color(t_rc *data, int x, int y)
 
 	y_map = y / PIX_SQ;
 	x_map = x / PIX_SQ;
-	max_width = data->map->width * PIX_SQ;
-	max_heigth = data->map->height * PIX_SQ;
-	if (((x_map * PIX_SQ) < max_width && (x_map * PIX_SQ) > 0)
-		&& ((y_map * PIX_SQ) > 0 && (y_map * PIX_SQ) < max_heigth))
+	max_width = data->map->width;
+	max_heigth = data->map->height;
+	// printf("1origin y: %d, x: %d\n", y_map, x_map);
+	if ((x_map < max_width && x_map > 0)
+		&& (y_map > 0 && y_map < max_heigth))
 		return (data->map->map[y_map][x_map] == '1'
 		|| data->map->map[y_map][x_map] == '.');
 	else
@@ -26,7 +27,6 @@ void	ft_print_minimap(t_rc *data)
 	double	x;
 	double	x_aux;
 
-	printf("1origin y: %f, x: %f\n", data->player.y, data->player.x);
 	y = data->player.y - MAP_HEIGHT / 2;
 	x = data->player.x - MAP_WIDTH / 2;
 	y_aux = y;
@@ -41,7 +41,7 @@ void	ft_print_minimap(t_rc *data)
 				mlx_put_pixel(data->img_map, x - x_aux, y - y_aux, 0x000000FF);
 			x++;
 		}
-		x = 0;
+		x = x_aux;
 		y++;
 	}
 }

@@ -37,7 +37,7 @@ void	ft_player_finder(t_rc *data)
 			{
 				data->player.x = (x * PIX_SQ) + (PIX_SQ / 2);
 				data->player.y = (y * PIX_SQ) + (PIX_SQ / 2);
-				printf("origin y: %f, x: %f\n", data->player.y, data->player.x);
+				// printf("origin y: %f, x: %f\n", data->player.y, data->player.x);
 				ft_orientation(data, data->map->map[y][x]);
 			}
 			x++;
@@ -56,8 +56,6 @@ void	ft_init(t_rc *data, t_init *init)
 	memset(data->img_p->pixels, 255, data->img_p->width * data->img_p->height * 4);
 	data->img_h = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
 	ft_player_finder(data);
-	// data->player.x = MAP_WIDTH / 2;
-	// data->player.y = MAP_HEIGHT / 2;
 	data->player.dx = cos(data->player.alpha) * 5;
 	data->player.dy = sin(data->player.alpha) * 5;
 	ft_print_player(data);
