@@ -15,7 +15,7 @@ static int	ft_set_pixel_color(t_rc *data, int x, int y)
 		&& (y_map >= 0 && y_map < max_heigth))
 	{
 		return (data->map->map[y_map][x_map] == '1'
-		|| data->map->map[y_map][x_map] == '.' ||  data->map->map[y_map][x_map] == '\0');
+		|| data->map->map[y_map][x_map] == '.' ||  data->map->map[y_map][x_map] == '.');
 	}
 	else
 		return (1);

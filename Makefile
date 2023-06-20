@@ -21,7 +21,7 @@ COLOR = \033[1;32m
 SRCS_MAP = $(addprefix ./src/parser/, inputs_checker.c map_init.c map_parser.c textures_catcher.c colors_catcher.c map_catcher.c map_normalizer.c map_checker.c color_converter.c)
 SRCS_WORLD_BUILDER = $(addprefix ./src/world_builder/, world_builder.c raycast.c textures.c)
 SRCS_CUB3D_UTILS = $(addprefix ./src/cub3d_utils/, free_fts.c ft_errexit.c ft_atoi_checker.c)
-SRCS_RCASTER = $(addprefix ./src/raycasting/, raycaster.c minimap.c init.c hooks.c)
+SRCS_RCASTER = $(addprefix ./src/raycasting/, main.c minimap.c init.c hooks.c)
 
 OBJS_RCASTER = $(addsuffix .o, $(notdir $(basename $(SRCS_RCASTER))))
 OBJS_MAP = $(addsuffix .o, $(notdir $(basename $(SRCS_MAP))))
