@@ -55,9 +55,11 @@ static void	ft_put_image(t_rc *data)
 	int	x_map;
 	int	y_map;
 
-	x = (int)px /(MAP_WIDTH / data->map->width);
-	y = (int)py /(MAP_HEIGHT / data->map->height);
-	return data->map->map[y][x] == '1';
+	x_map = (MAP_WIDTH / 2) - (P_SIZE / 2);
+	y_map = (MAP_HEIGHT / 2) - (P_SIZE / 2);
+	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
+	mlx_image_to_window(data->mlx, data->img_p, x_map, y_map);
+	mlx_image_to_window(data->mlx, data->img_h, 0, 0);
 }
 
 void	ft_is_wall(t_rc *data, double py, double px, char type)
@@ -88,61 +90,82 @@ void	ft_is_wall(t_rc *data, double py, double px, char type)
 	data->img_p->instances[0].x = data->player.x;
 }
 
-void	ft_key_hook(mlx_key_data_t keydata, void *param)
-{
-	t_rc	*data;
-	int		t;
+// static int	ft_check_index(t_rc *data, int y, int x)
+// {
+// 	if (y > data->map->height || y < 0)
+// 		return (1);
+// 	if (x > data->map->width || x < 0)
+// 		return (1);
+// 	return (0);
+// }
 
-	t = -1;
-	data = (t_rc *)param;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-	{
-		mlx_terminate(data->mlx);
-		exit(0);
-	}
-	if (keydata.key == MLX_KEY_W
-		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	{
-		ft_is_wall(data, data->player.y + data->player.dy,data->player.x + data->player.dx, 'W');
-		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x + data->p3d.dir_x * 0.1)] != '1')
-			data->p3d.pos_x += data->p3d.dir_x * 0.1;
-		if (data->map->map[(int)(data->p3d.pos_y + data->p3d.dir_y * 0.1)][(int)data->p3d.pos_x] != '1')
-			data->p3d.pos_y += data->p3d.dir_y * 0.1;
-	}
-	if (keydata.key == MLX_KEY_S
-		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	{
-		ft_is_wall(data, data->player.y - data->player.dy,data->player.x - data->player.dx, 'S');
-		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x - data->p3d.dir_x * 0.1)] != '1')
-			data->p3d.pos_x -= data->p3d.dir_x * 0.1;
-		if (data->map->map[(int)(data->p3d.pos_y - data->p3d.dir_y * 0.1)][(int)data->p3d.pos_x] != '1')
-			data->p3d.pos_y -= data->p3d.dir_y * 0.1;
-	}
-	if (keydata.key == MLX_KEY_A
-		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	{
-		ft_is_wall(data, data->player.y - data->player.dx, data->player.x + data->player.dy, 'A');
-		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x + data->p3d.dir_y * 0.1)] != '1')
-			data->p3d.pos_x += data->p3d.dir_y * 0.1;
-		if (data->map->map[(int)(data->p3d.pos_y - data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
-			data->p3d.pos_y -= data->p3d.dir_x * 0.1;
-	}
-	if (keydata.key == MLX_KEY_D
-		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	{
-		ft_is_wall(data, data->player.y + data->player.dx, data->player.x - data->player.dy, 'D');
-		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x - data->p3d.dir_y * 0.1)] != '1')
-			data->p3d.pos_x -= data->p3d.dir_y * 0.1;
-		if (data->map->map[(int)(data->p3d.pos_y + data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
-			data->p3d.pos_y += data->p3d.dir_x * 0.1;
-	}
-	ft_rotation(keydata, data);
-	raycast(data);
-	// cabeza del jugador
-	memset(data->img_h->pixels, 0, data->img_h->width * data->img_h->height * 4 );
-	while (t++ < MAP_WIDTH && !is_wall(data, data->player.y + 2 + t * (data->player.dy/MULT_DELTA), data->player.x + 2 + t * (data->player.dx/MULT_DELTA)))
-		mlx_put_pixel(data->img_h, data->player.x + 2 + t * (data->player.dx/MULT_DELTA), (data->player.y + 2) + t * (data->player.dy/MULT_DELTA), 0xFF00FFFF);
-}
+// static int	is_wall(t_rc *data, double py, double px)
+// {
+// 	int	x;
+// 	int	y;
+
+// 	x = (int)px / PIX_SQ;
+// 	y = (int)py / PIX_SQ;
+// 	if (ft_check_index(data, y, x))
+// 		return (1);
+// 	return data->map->map[y][x] == '1';
+// }
+
+// void	ft_key_hook(mlx_key_data_t keydata, void *param)
+// {
+// 	t_rc	*data;
+// 	int		t;
+
+// 	t = -1;
+// 	data = (t_rc *)param;
+// 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
+// 	{
+// 		mlx_terminate(data->mlx);
+// 		exit(0);
+// 	}
+// 	if (keydata.key == MLX_KEY_W
+// 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+// 	{
+// 		ft_is_wall(data, data->player.y + data->player.dy,data->player.x + data->player.dx, 'W');
+// 		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x + data->p3d.dir_x * 0.1)] != '1')
+// 			data->p3d.pos_x += data->p3d.dir_x * 0.1;
+// 		if (data->map->map[(int)(data->p3d.pos_y + data->p3d.dir_y * 0.1)][(int)data->p3d.pos_x] != '1')
+// 			data->p3d.pos_y += data->p3d.dir_y * 0.1;
+// 	}
+// 	if (keydata.key == MLX_KEY_S
+// 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+// 	{
+// 		ft_is_wall(data, data->player.y - data->player.dy,data->player.x - data->player.dx, 'S');
+// 		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x - data->p3d.dir_x * 0.1)] != '1')
+// 			data->p3d.pos_x -= data->p3d.dir_x * 0.1;
+// 		if (data->map->map[(int)(data->p3d.pos_y - data->p3d.dir_y * 0.1)][(int)data->p3d.pos_x] != '1')
+// 			data->p3d.pos_y -= data->p3d.dir_y * 0.1;
+// 	}
+// 	if (keydata.key == MLX_KEY_A
+// 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+// 	{
+// 		ft_is_wall(data, data->player.y - data->player.dx, data->player.x + data->player.dy, 'A');
+// 		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x + data->p3d.dir_y * 0.1)] != '1')
+// 			data->p3d.pos_x += data->p3d.dir_y * 0.1;
+// 		if (data->map->map[(int)(data->p3d.pos_y - data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
+// 			data->p3d.pos_y -= data->p3d.dir_x * 0.1;
+// 	}
+// 	if (keydata.key == MLX_KEY_D
+// 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+// 	{
+// 		ft_is_wall(data, data->player.y + data->player.dx, data->player.x - data->player.dy, 'D');
+// 		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x - data->p3d.dir_y * 0.1)] != '1')
+// 			data->p3d.pos_x -= data->p3d.dir_y * 0.1;
+// 		if (data->map->map[(int)(data->p3d.pos_y + data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
+// 			data->p3d.pos_y += data->p3d.dir_x * 0.1;
+// 	}
+// 	ft_rotation(keydata, data);
+// 	raycast(data);
+// 	// cabeza del jugador
+// 	memset(data->img_h->pixels, 0, data->img_h->width * data->img_h->height * 4 );
+// 	while (t++ < MAP_WIDTH && !is_wall(data, data->player.y + 2 + t * (data->player.dy/MULT_DELTA), data->player.x + 2 + t * (data->player.dx/MULT_DELTA)))
+// 		mlx_put_pixel(data->img_h, data->player.x + 2 + t * (data->player.dx/MULT_DELTA), (data->player.y + 2) + t * (data->player.dy/MULT_DELTA), 0xFF00FFFF);
+// }
 
 void	ft_print_player(t_rc *data)
 {
@@ -154,55 +177,55 @@ void	ft_print_player(t_rc *data)
 		pointer[p++] = 0xFF00FFFF;
 }
 
-void	ft_init(t_rc *data, t_init *init)
-{
-	data->map = init->map;
-	// data->map->width = 8;
-	// data->map->height = 8;
-	// init de player
-	data->img_p = mlx_new_image(data->mlx, P_SIZE, P_SIZE);
-	memset(data->img_p->pixels, 255, data->img_p->width * data->img_p->height * 4);
-	data->img_h = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
-	// data->player.alpha = 0;
-	data->player.alpha = PI;
-	data->player.x = 140.5;
-	data->player.y = 200.5;
-	// data->player.dx = cos(data->player.alpha) * 5;
-	// data->player.dy = sin(data->player.alpha) * 5;
-	data->player.dx = -1;
-	data->player.dy = 0;
-	ft_print_player(data);
-	// init de map
-	data->img_map = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
-	memset(data->img_map->pixels, 255, data->img_map->width * data->img_map->height * 4);
-}
+// void	ft_init(t_rc *data, t_init *init)
+// {
+// 	data->map = init->map;
+// 	// data->map->width = 8;
+// 	// data->map->height = 8;
+// 	// init de player
+// 	data->img_p = mlx_new_image(data->mlx, P_SIZE, P_SIZE);
+// 	memset(data->img_p->pixels, 255, data->img_p->width * data->img_p->height * 4);
+// 	data->img_h = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
+// 	// data->player.alpha = 0;
+// 	data->player.alpha = PI;
+// 	data->player.x = 140.5;
+// 	data->player.y = 200.5;
+// 	// data->player.dx = cos(data->player.alpha) * 5;
+// 	// data->player.dy = sin(data->player.alpha) * 5;
+// 	data->player.dx = -1;
+// 	data->player.dy = 0;
+// 	ft_print_player(data);
+// 	// init de map
+// 	data->img_map = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
+// 	memset(data->img_map->pixels, 255, data->img_map->width * data->img_map->height * 4);
+// }
 
-void	ft_print_minimap(t_rc *data)
-{
-	int	y;
-	int	x;
-	int	color;
+// void	ft_print_minimap(t_rc *data)
+// {
+// 	int	y;
+// 	int	x;
+// 	int	color;
 
-	color = 0;
-	y = 0;
-	x = 0;
-	data->sq_size_x = MAP_WIDTH / data->map->width;
-	data->sq_size_y = MAP_HEIGHT / data->map->height;
-	while(y < MAP_HEIGHT && (y / data->sq_size_y) < data->map->height)
-	{
-		while (x < MAP_WIDTH && (x / data->sq_size_x) < data->map->width)
-		{
-			color = data->map->map[y / data->sq_size_y][x / data->sq_size_x] == '1';
-			if (color)
-				mlx_put_pixel(data->img_map, x, y, 0xFFFFFFFF);
-			else
-				mlx_put_pixel(data->img_map, x, y, 0x000000FF);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-}
+// 	color = 0;
+// 	y = 0;
+// 	x = 0;
+// 	data->sq_size_x = MAP_WIDTH / data->map->width;
+// 	data->sq_size_y = MAP_HEIGHT / data->map->height;
+// 	while(y < MAP_HEIGHT && (y / data->sq_size_y) < data->map->height)
+// 	{
+// 		while (x < MAP_WIDTH && (x / data->sq_size_x) < data->map->width)
+// 		{
+// 			color = data->map->map[y / data->sq_size_y][x / data->sq_size_x] == '1';
+// 			if (color)
+// 				mlx_put_pixel(data->img_map, x, y, 0xFFFFFFFF);
+// 			else
+// 				mlx_put_pixel(data->img_map, x, y, 0x000000FF);
+// 			x++;
+// 		}
+// 		x = 0;
+// 		y++;
+// 	}
+// }
 
 // void	leaks(void)
 // {
@@ -220,14 +243,7 @@ int32_t	main(int argc, char **argv)
 	if (!data.mlx)
 		return (EXIT_FAILURE);
 	ft_init(&data, &init);
-	ft_put_image(&data);
 	world_builder(&data);
-	data.p3d.px = 0;
-	data.p3d.py = -0.66;
-	data.p3d.dir_x = -1;
-	data.p3d.dir_y = 0;
-	data.p3d.pos_x = (data.player.x / data.sq_size_x);
-	data.p3d.pos_y = (data.player.y / data.sq_size_y);
 	data.texs[0] = mlx_load_png(data.map->n_tex);
 	data.texs[1] = mlx_load_png(data.map->s_tex);
 	data.texs[2] = mlx_load_png(data.map->w_tex);
@@ -235,6 +251,7 @@ int32_t	main(int argc, char **argv)
 	raycast(&data);
 	mlx_image_to_window(data.mlx, data.img_bg, 0, 0);
 	mlx_image_to_window(data.mlx, data.img_world, 0, 0);
+	ft_put_image(&data);
 	mlx_key_hook(data.mlx, &ft_key_hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);

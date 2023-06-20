@@ -5,20 +5,34 @@ static void	ft_rotation(mlx_key_data_t keydata, t_rc *data)
 	if (keydata.key == MLX_KEY_LEFT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		data->player.alpha -= ALPHA_INC;
+		data->player.alpha += ROT_SPEED_LEFT;
 		if (data->player.alpha < 0)
 			data->player.alpha += 2 * PI;
 		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
 		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
+		data->p3d.old_dx = data->p3d.dir_x;
+		data->p3d.dir_x = data->p3d.dir_x * cos(ROT_SPEED_LEFT) - data->p3d.dir_y * sin(ROT_SPEED_LEFT);
+		data->p3d.dir_y = data->p3d.old_dx * sin(ROT_SPEED_LEFT) + data->p3d.dir_y * cos(ROT_SPEED_LEFT);
+
+		data->p3d.old_px = data->p3d.px;
+		data->p3d.px = data->p3d.px * cos(ROT_SPEED_LEFT) - data->p3d.py * sin(ROT_SPEED_LEFT);
+		data->p3d.py = data->p3d.old_px * sin(ROT_SPEED_LEFT) + data->p3d.py * cos(ROT_SPEED_LEFT);
 	}
 	if (keydata.key == MLX_KEY_RIGHT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		data->player.alpha += ALPHA_INC;
+		data->player.alpha += ROT_SPEED_RIGHT;
 		if (data->player.alpha > 2 * PI)
 			data->player.alpha -= 2 * PI;
 		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
 		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
+		data->p3d.old_dx = data->p3d.dir_x;
+		data->p3d.dir_x = data->p3d.dir_x * cos(ROT_SPEED_RIGHT) - data->p3d.dir_y * sin(ROT_SPEED_RIGHT);
+		data->p3d.dir_y = data->p3d.old_dx * sin(ROT_SPEED_RIGHT) + data->p3d.dir_y * cos(ROT_SPEED_RIGHT);
+
+		data->p3d.old_px = data->p3d.px;
+		data->p3d.px = data->p3d.px * cos(ROT_SPEED_RIGHT) - data->p3d.py * sin(ROT_SPEED_RIGHT);
+		data->p3d.py = data->p3d.old_px * sin(ROT_SPEED_RIGHT) + data->p3d.py * cos(ROT_SPEED_RIGHT);
 	}
 }
 
@@ -91,17 +105,42 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	}
 	if (keydata.key == MLX_KEY_W
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y + data->player.dy,data->player.x + data->player.dx, 'W');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x + data->p3d.dir_x * 0.1)] != '1')
+			data->p3d.pos_x += data->p3d.dir_x * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y + data->p3d.dir_y * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y += data->p3d.dir_y * 0.1;
+	}
 	if (keydata.key == MLX_KEY_S
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y - data->player.dy,data->player.x - data->player.dx, 'S');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x - data->p3d.dir_x * 0.1)] != '1')
+			data->p3d.pos_x -= data->p3d.dir_x * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y - data->p3d.dir_y * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y -= data->p3d.dir_y * 0.1;
+	}
 	if (keydata.key == MLX_KEY_A
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y - data->player.dx, data->player.x + data->player.dy, 'A');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x + data->p3d.dir_y * 0.1)] != '1')
+			data->p3d.pos_x += data->p3d.dir_y * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y - data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y -= data->p3d.dir_x * 0.1;
+	}
 	if (keydata.key == MLX_KEY_D
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y + data->player.dx, data->player.x - data->player.dy, 'D');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x - data->p3d.dir_y * 0.1)] != '1')
+			data->p3d.pos_x -= data->p3d.dir_y * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y + data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y += data->p3d.dir_x * 0.1;
+	}
 	ft_rotation(keydata, data);
+	raycast(data);
 	// cabeza del jugador
 	memset(data->img_h->pixels, 0,data->img_h->width * data->img_h->height * 4 );
 	while (t++ < MAP_WIDTH && !is_wall(data, data->player.y + 2 + t * (data->player.dy/MULT_DELTA), data->player.x + 2 + t * (data->player.dx/MULT_DELTA)))

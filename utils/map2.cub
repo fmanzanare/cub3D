@@ -1,7 +1,13 @@
-NO ./ruta_a_la_textura_norte
-SO ./ruta_a_la_textura_sur
-WE ./ruta_a_la_textura_oeste
-EA ./ruta_a_la_textura_este
+	 	 	NO 	 	 	./textures/GRAYWALL.png
+
+SO ./textures/BIGBRICKS.png
+
+
+   WE ./textures/CASTLEBRICKS.png
+
+
+
+EA ./textures/DUNGEONBRICKS.png
 
 F 220,100,0
 C 225,30,0
