@@ -1,6 +1,6 @@
 #include "../../includes/cub3D.h"
 
-static void init_map_vars(t_map *map)
+static void	init_map_vars(t_map *map)
 {
 	map->map = NULL;
 	map->height = 0;

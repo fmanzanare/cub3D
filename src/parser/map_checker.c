@@ -14,10 +14,8 @@ static void	check_adjacents(t_init *init, char *line, int i, int idx)
 {
 	if (!line[i])
 		return ;
-	if (!check_valid_elem(line[i])) {
-		printf("Line: %d\ni: %d\n'%c'\n", idx, i, line[i]);
-		ft_puterr_fd("Error\nWrong elements on map.\n", 2, 1);
-	}
+	if (!check_valid_elem(line[i]))
+		ft_errexit(init, "Error\nWrong elements on map.\n");
 	if (line[i] != '1')
 	{
 		if ((!line[i + 1] || line[i + 1] == '.')
@@ -25,7 +23,7 @@ static void	check_adjacents(t_init *init, char *line, int i, int idx)
 			|| (idx > 0 && !check_valid_elem(init->map->map[idx - 1][i]))
 			|| (idx < init->map->height - 1
 				&& !check_valid_elem(init->map->map[idx + 1][i])))
-			ft_puterr_fd("Error\nWrong map configuration\n", 2, 1);
+			ft_errexit(init, "Error\nWrong map configuration\n");
 	}
 }
 
@@ -43,7 +41,7 @@ static void	line_checker(t_init *init, char *line, int idx)
 			if (!line[i])
 				continue ;
 			else if (line[i] != '1')
-				ft_puterr_fd("Error\nWrong map configuration\n", 2, 1);
+				ft_errexit(init, "Error\nWrong map configuration\n");
 		}
 		check_adjacents(init, line, i, idx);
 		i++;
@@ -82,7 +80,7 @@ void	map_checker(t_init *init)
 
 	i = 0;
 	if (!check_player(init))
-		ft_puterr_fd("Error\nIssues with player positioning.\n", 2, 1);
+		ft_errexit(init, "Error\nIssues with player positioning.\n");
 	while (init->map->map[i])
 	{
 		line_checker(init, init->map->map[i], i);

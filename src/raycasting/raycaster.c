@@ -17,20 +17,36 @@ void	ft_rotation(mlx_key_data_t keydata, t_rc *data)
 	if (keydata.key == MLX_KEY_LEFT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		data->player.alpha -= ALPHA_INC;
+		data->player.alpha += ROT_SPEED_LEFT;
 		if (data->player.alpha < 0)
 			data->player.alpha += 2 * PI;
 		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
 		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
+
+		data->p3d.old_dx = data->p3d.dir_x;
+		data->p3d.dir_x = data->p3d.dir_x * cos(ROT_SPEED_LEFT) - data->p3d.dir_y * sin(ROT_SPEED_LEFT);
+		data->p3d.dir_y = data->p3d.old_dx * sin(ROT_SPEED_LEFT) + data->p3d.dir_y * cos(ROT_SPEED_LEFT);
+
+		data->p3d.old_px = data->p3d.px;
+		data->p3d.px = data->p3d.px * cos(ROT_SPEED_LEFT) - data->p3d.py * sin(ROT_SPEED_LEFT);
+		data->p3d.py = data->p3d.old_px * sin(ROT_SPEED_LEFT) + data->p3d.py * cos(ROT_SPEED_LEFT);
 	}
 	if (keydata.key == MLX_KEY_RIGHT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		data->player.alpha += ALPHA_INC;
+		data->player.alpha += ROT_SPEED_RIGHT;
 		if (data->player.alpha > 2 * PI)
 			data->player.alpha -= 2 * PI;
 		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
 		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
+
+		data->p3d.old_dx = data->p3d.dir_x;
+		data->p3d.dir_x = data->p3d.dir_x * cos(ROT_SPEED_RIGHT) - data->p3d.dir_y * sin(ROT_SPEED_RIGHT);
+		data->p3d.dir_y = data->p3d.old_dx * sin(ROT_SPEED_RIGHT) + data->p3d.dir_y * cos(ROT_SPEED_RIGHT);
+
+		data->p3d.old_px = data->p3d.px;
+		data->p3d.px = data->p3d.px * cos(ROT_SPEED_RIGHT) - data->p3d.py * sin(ROT_SPEED_RIGHT);
+		data->p3d.py = data->p3d.old_px * sin(ROT_SPEED_RIGHT) + data->p3d.py * cos(ROT_SPEED_RIGHT);
 	}
 }
 
@@ -86,19 +102,44 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	}
 	if (keydata.key == MLX_KEY_W
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y + data->player.dy,data->player.x + data->player.dx, 'W');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x + data->p3d.dir_x * 0.1)] != '1')
+			data->p3d.pos_x += data->p3d.dir_x * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y + data->p3d.dir_y * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y += data->p3d.dir_y * 0.1;
+	}
 	if (keydata.key == MLX_KEY_S
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y - data->player.dy,data->player.x - data->player.dx, 'S');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x - data->p3d.dir_x * 0.1)] != '1')
+			data->p3d.pos_x -= data->p3d.dir_x * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y - data->p3d.dir_y * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y -= data->p3d.dir_y * 0.1;
+	}
 	if (keydata.key == MLX_KEY_A
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y - data->player.dx, data->player.x + data->player.dy, 'A');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x + data->p3d.dir_y * 0.1)] != '1')
+			data->p3d.pos_x += data->p3d.dir_y * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y - data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y -= data->p3d.dir_x * 0.1;
+	}
 	if (keydata.key == MLX_KEY_D
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y + data->player.dx, data->player.x - data->player.dy, 'D');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x - data->p3d.dir_y * 0.1)] != '1')
+			data->p3d.pos_x -= data->p3d.dir_y * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y + data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y += data->p3d.dir_x * 0.1;
+	}
 	ft_rotation(keydata, data);
+	raycast(data);
 	// cabeza del jugador
-	memset(data->img_h->pixels, 0,data->img_h->width * data->img_h->height * 4 );
+	memset(data->img_h->pixels, 0, data->img_h->width * data->img_h->height * 4 );
 	while (t++ < MAP_WIDTH && !is_wall(data, data->player.y + 2 + t * (data->player.dy/MULT_DELTA), data->player.x + 2 + t * (data->player.dx/MULT_DELTA)))
 		mlx_put_pixel(data->img_h, data->player.x + 2 + t * (data->player.dx/MULT_DELTA), (data->player.y + 2) + t * (data->player.dy/MULT_DELTA), 0xFF00FFFF);
 }
@@ -122,11 +163,14 @@ void	ft_init(t_rc *data, t_init *init)
 	data->img_p = mlx_new_image(data->mlx, P_SIZE, P_SIZE);
 	memset(data->img_p->pixels, 255, data->img_p->width * data->img_p->height * 4);
 	data->img_h = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
-	data->player.alpha = 0;
-	data->player.x = 120;
-	data->player.y = 150;
-	data->player.dx = cos(data->player.alpha) * 5;
-	data->player.dy = sin(data->player.alpha) * 5;
+	// data->player.alpha = 0;
+	data->player.alpha = PI;
+	data->player.x = 140.5;
+	data->player.y = 200.5;
+	// data->player.dx = cos(data->player.alpha) * 5;
+	// data->player.dy = sin(data->player.alpha) * 5;
+	data->player.dx = -1;
+	data->player.dy = 0;
 	ft_print_player(data);
 	// init de map
 	data->img_map = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
@@ -148,7 +192,6 @@ void	ft_print_minimap(t_rc *data)
 	{
 		while (x < MAP_WIDTH && (x / data->sq_size_x) < data->map->width)
 		{
-			printf("y: %d, x: %d\n", y / data->sq_size_y, x / data->sq_size_x);
 			color = data->map->map[y / data->sq_size_y][x / data->sq_size_x] == '1';
 			if (color)
 				mlx_put_pixel(data->img_map, x, y, 0xFFFFFFFF);
@@ -161,17 +204,37 @@ void	ft_print_minimap(t_rc *data)
 	}
 }
 
+// void	leaks(void)
+// {
+// 	system("leaks -q cub3D");
+// }
+
 int32_t	main(int argc, char **argv)
 {
 	t_rc		data;
 	t_init		init;
 
+	// atexit(leaks);
 	arg_checker(argc, argv, &init);
-	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);
 	if (!data.mlx)
 		return (EXIT_FAILURE);
 	ft_init(&data, &init);
 	ft_print_minimap(&data);
+	world_builder(&data);
+	data.p3d.px = 0;
+	data.p3d.py = -0.66;
+	data.p3d.dir_x = -1;
+	data.p3d.dir_y = 0;
+	data.p3d.pos_x = (data.player.x / data.sq_size_x);
+	data.p3d.pos_y = (data.player.y / data.sq_size_y);
+	data.texs[0] = mlx_load_png(data.map->n_tex);
+	data.texs[1] = mlx_load_png(data.map->s_tex);
+	data.texs[2] = mlx_load_png(data.map->w_tex);
+	data.texs[3] = mlx_load_png(data.map->e_tex);
+	raycast(&data);
+	mlx_image_to_window(data.mlx, data.img_bg, 0, 0);
+	mlx_image_to_window(data.mlx, data.img_world, 0, 0);
 	mlx_image_to_window(data.mlx, data.img_map, 0, 0);
 	mlx_image_to_window(data.mlx, data.img_p, data.player.x - 4, data.player.y - 4);
 	mlx_image_to_window(data.mlx, data.img_h, 0, 0);

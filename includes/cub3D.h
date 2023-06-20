@@ -16,13 +16,53 @@
 # define MAP_HEIGHT	512/2
 # define PI			3.14159265359
 # define ALPHA_INC	0.1
-# define MULT_DELTA	5
+# define MULT_DELTA	2
+# define INFINITE	1e30
+# define ROT_SPEED_LEFT		-0.1
+# define ROT_SPEED_RIGHT	0.1
+
+typedef struct s_player3d
+{
+	double	pos_x;
+	double	pos_y;
+	int		map_x;
+	int		map_y;
+	double	old_dx;
+	double	dir_x;
+	double	dir_y;
+	double	cx;
+	double	px;
+	double	py;
+	double	old_px;
+	double	ray_dx;
+	double	ray_dy;
+	double	sdx;
+	double	sdy;
+	double	ddx;
+	double	ddy;
+	double	pwd;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		l_height;
+	int		d_start;
+	int		d_end;
+	int		color;
+	double	wall_x;
+	int		tx;
+	int		ty;
+	double	step;
+	double	tpos;
+}	t_player3d;
+
 
 typedef struct s_player{
 	double	x;
 	double	y;
 	double	dy;
 	double	dx;
+	double	old_px;
 	double	alpha;
 }	t_player;
 
@@ -39,14 +79,22 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_rc{
-	mlx_t		*mlx;
-	mlx_image_t	*img_p;
-	mlx_image_t	*img_map;
-	mlx_image_t	*img_h;
-	t_player	player;
-	t_map		*map;
-	int			sq_size_x;
-	int			sq_size_y;
+	mlx_t			*mlx;
+	mlx_image_t		*img_bg;
+	mlx_image_t		*img_world;
+	mlx_texture_t	*n_tex;
+	mlx_texture_t	*s_tex;
+	mlx_texture_t	*w_tex;
+	mlx_texture_t	*e_tex;
+	mlx_texture_t	*texs[4];
+	mlx_image_t		*img_p;
+	mlx_image_t		*img_map;
+	mlx_image_t		*img_h;
+	t_player		player;
+	t_player3d		p3d;
+	t_map			*map;
+	int				sq_size_x;
+	int				sq_size_y;
 }	t_rc;
 
 typedef struct s_init {
@@ -63,6 +111,8 @@ typedef struct s_init {
 }	t_init;
 
 //*************************** FUNCTIONS **************************************//
+
+// PARSER
 void	arg_checker(int argc, char **argv, t_init *init);
 void	init_vars(t_init *init);
 void	map_reader(t_init *init);
@@ -74,5 +124,17 @@ void	map_normalizer(t_init *init, int idx);
 void	map_checker(t_init *init);
 void	print_incnt(t_init *init);
 void	get_colors(t_init *init);
+void	check_texture_files(t_init *init);
+void	free_matrix(char **arr);
+
+// CUB3D_UTILS
+void	struct_free_ft(t_init *init);
+void	ft_errexit(t_init *init, char *str);
+int		ft_atoi_checker(const char *str, t_init *init);
+
+// WORLD
+void	world_builder(t_rc *data);
+void	raycast(t_rc *data);
+void	put_textures(t_rc *data, int x);
 
 #endif

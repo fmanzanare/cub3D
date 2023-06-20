@@ -1,6 +1,6 @@
 #include "../../includes/cub3D.h"
 
-static int check_empty_line(char *str)
+static int	check_empty_line(char *str)
 {
 	int	i;
 
@@ -14,7 +14,7 @@ static int check_empty_line(char *str)
 	return (1);
 }
 
-static int get_map_rows(t_init *init, int idx)
+static int	get_map_rows(t_init *init, int idx)
 {
 	int	rows;
 
@@ -50,7 +50,7 @@ int	map_builder(t_init *init, int idx)
 	init->map->height = get_map_rows(init, idx);
 	init->map->map = malloc(sizeof(char *) * init->map->height + 1);
 	if (!init->map->map)
-		ft_puterr_fd("Error\nNot enough memory available", 2, 1);
+		ft_errexit(init, "Error\nNot enough memory available");
 	map_normalizer(init, idx);
 	map_checker(init);
 	return (1);

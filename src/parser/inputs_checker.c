@@ -1,6 +1,6 @@
 #include "../../includes/cub3D.h"
 
-static void check_map_ext(char *route)
+static void	check_map_ext(char *route)
 {
 	int		len;
 	int		flag;
