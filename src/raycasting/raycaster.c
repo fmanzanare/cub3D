@@ -86,8 +86,6 @@ void	ft_is_wall(t_rc *data, double py, double px, char type)
 		data->player.y += data->player.dx;
 	data->img_p->instances[0].y = data->player.y;
 	data->img_p->instances[0].x = data->player.x;
-
-
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
@@ -122,10 +120,22 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	}
 	if (keydata.key == MLX_KEY_A
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y - data->player.dx, data->player.x + data->player.dy, 'A');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x + data->p3d.dir_y * 0.1)] != '1')
+			data->p3d.pos_x += data->p3d.dir_y * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y - data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y -= data->p3d.dir_x * 0.1;
+	}
 	if (keydata.key == MLX_KEY_D
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
 		ft_is_wall(data, data->player.y + data->player.dx, data->player.x - data->player.dy, 'D');
+		if (data->map->map[(int)data->p3d.pos_y][(int)(data->p3d.pos_x - data->p3d.dir_y * 0.1)] != '1')
+			data->p3d.pos_x -= data->p3d.dir_y * 0.1;
+		if (data->map->map[(int)(data->p3d.pos_y + data->p3d.dir_x * 0.1)][(int)data->p3d.pos_x] != '1')
+			data->p3d.pos_y += data->p3d.dir_x * 0.1;
+	}
 	ft_rotation(keydata, data);
 	raycast(data);
 	// cabeza del jugador
@@ -182,7 +192,6 @@ void	ft_print_minimap(t_rc *data)
 	{
 		while (x < MAP_WIDTH && (x / data->sq_size_x) < data->map->width)
 		{
-			//printf("y: %d, x: %d\n", y / data->sq_size_y, x / data->sq_size_x);
 			color = data->map->map[y / data->sq_size_y][x / data->sq_size_x] == '1';
 			if (color)
 				mlx_put_pixel(data->img_map, x, y, 0xFFFFFFFF);
@@ -211,6 +220,8 @@ int32_t	main(int argc, char **argv)
 	data.p3d.py = -0.66;
 	data.p3d.dir_x = -1;
 	data.p3d.dir_y = 0;
+	data.p3d.pos_x = (data.player.x / data.sq_size_x);
+	data.p3d.pos_y = (data.player.y / data.sq_size_y);
 	data.texs[0] = mlx_load_png(data.map->n_tex);
 	data.texs[1] = mlx_load_png(data.map->s_tex);
 	data.texs[2] = mlx_load_png(data.map->w_tex);

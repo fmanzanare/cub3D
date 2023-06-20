@@ -94,8 +94,7 @@ void	raycast(t_rc *data)
 {
 	int		x;
 
-	data->p3d.pos_x = (data->player.x / data->sq_size_x);
-	data->p3d.pos_y = (data->player.y / data->sq_size_y);
+
 	memset(data->img_world->pixels, 0, data->img_world->width * data->img_world->height * 4);
 	x = 0;
 	while (x < WIDTH)
