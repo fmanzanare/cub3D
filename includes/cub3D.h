@@ -12,6 +12,8 @@
 # define WIDTH		1024
 # define HEIGHT		512
 # define P_SIZE		8
+# define TOT_SQ		8
+# define PIX_SQ		32
 # define MAP_WIDTH	1024/4
 # define MAP_HEIGHT	512/2
 # define PI			3.14159265359
@@ -58,6 +60,8 @@ typedef struct s_player3d
 
 
 typedef struct s_player{
+	int		arr_x;
+	int		arr_y;
 	double	x;
 	double	y;
 	double	dy;
@@ -65,7 +69,7 @@ typedef struct s_player{
 	double	old_px;
 	double	alpha;
 }	t_player;
-
+// height y width empiezan en 1
 typedef struct s_map {
 	char			**map;
 	int				height;
@@ -137,4 +141,7 @@ void	world_builder(t_rc *data);
 void	raycast(t_rc *data);
 void	put_textures(t_rc *data, int x);
 
+void	ft_key_hook(mlx_key_data_t keydata, void *param);
+void	ft_init(t_rc *data, t_init *init);
+void	ft_print_minimap(t_rc *data);
 #endif

@@ -50,10 +50,10 @@ void	ft_rotation(mlx_key_data_t keydata, t_rc *data)
 	}
 }
 
-int	is_wall(t_rc *data, double py, double px)
+static void	ft_put_image(t_rc *data)
 {
-	int	x;
-	int	y;
+	int	x_map;
+	int	y_map;
 
 	x = (int)px /(MAP_WIDTH / data->map->width);
 	y = (int)py /(MAP_HEIGHT / data->map->height);
@@ -220,7 +220,7 @@ int32_t	main(int argc, char **argv)
 	if (!data.mlx)
 		return (EXIT_FAILURE);
 	ft_init(&data, &init);
-	ft_print_minimap(&data);
+	ft_put_image(&data);
 	world_builder(&data);
 	data.p3d.px = 0;
 	data.p3d.py = -0.66;
@@ -235,9 +235,6 @@ int32_t	main(int argc, char **argv)
 	raycast(&data);
 	mlx_image_to_window(data.mlx, data.img_bg, 0, 0);
 	mlx_image_to_window(data.mlx, data.img_world, 0, 0);
-	mlx_image_to_window(data.mlx, data.img_map, 0, 0);
-	mlx_image_to_window(data.mlx, data.img_p, data.player.x - 4, data.player.y - 4);
-	mlx_image_to_window(data.mlx, data.img_h, 0, 0);
 	mlx_key_hook(data.mlx, &ft_key_hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
