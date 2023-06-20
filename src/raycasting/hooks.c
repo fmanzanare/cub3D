@@ -75,7 +75,6 @@ static void	ft_is_wall(t_rc *data, double py, double px, char type)
 		data->player.x -= data->player.dy;
 	if (map[sum_y][x_index] != '1' && type == 'D')
 		data->player.y += data->player.dx;
-	ft_print_minimap(data);
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
@@ -103,7 +102,6 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 		ft_is_wall(data, data->player.y + data->player.dx, data->player.x - data->player.dy, 'D');
 	ft_rotation(keydata, data);
-	ft_print_minimap(data);
 	// cabeza del jugador
 	memset(data->img_h->pixels, 0,data->img_h->width * data->img_h->height * 4 );
 	while (t++ < MAP_WIDTH && !is_wall(data, MAP_WIDTH / 2 + t * (data->player.dy/MULT_DELTA), MAP_WIDTH / 2 + t * (data->player.dx/MULT_DELTA)))
@@ -111,4 +109,5 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		// printf("x: %f, y: %f\n",  MAP_WIDTH / 2 + 2 + t * (data->player.dx/MULT_DELTA), MAP_HEIGHT / 2 + 2 + t * (data->player.dy/MULT_DELTA));
 		mlx_put_pixel(data->img_h, MAP_WIDTH / 2 + 2 + t * (data->player.dx/MULT_DELTA), MAP_HEIGHT / 2 + 2 + t * (data->player.dy/MULT_DELTA), 0xFF00FFFF);
 	}
+	ft_print_minimap(data);
 }

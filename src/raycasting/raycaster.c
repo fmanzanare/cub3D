@@ -22,9 +22,8 @@ int32_t	main(int argc, char **argv)
 	if (!data.mlx)
 		return (EXIT_FAILURE);
 	ft_init(&data, &init);
-	ft_print_minimap(&data);
 	mlx_image_to_window(data.mlx, data.img_map, 0, 0);
-	mlx_image_to_window(data.mlx, data.img_p, data.player.x - 4, data.player.y - 4);
+	mlx_image_to_window(data.mlx, data.img_p, (MAP_WIDTH / 2) + P_SIZE / 2, (MAP_HEIGHT / 2) + P_SIZE / 2);
 	mlx_image_to_window(data.mlx, data.img_h, 0, 0);
 	mlx_key_hook(data.mlx, &ft_key_hook, &data);
 	mlx_loop(data.mlx);

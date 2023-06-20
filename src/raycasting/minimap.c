@@ -26,11 +26,11 @@ void	ft_print_minimap(t_rc *data)
 	double	x;
 	double	x_aux;
 
+	printf("1origin y: %f, x: %f\n", data->player.y, data->player.x);
 	y = data->player.y - MAP_HEIGHT / 2;
 	x = data->player.x - MAP_WIDTH / 2;
 	y_aux = y;
 	x_aux = x;
-	// printf("origin y: %f, x: %f\n", y, x);
 	while(y - y_aux < MAP_HEIGHT)
 	{
 		while (x - x_aux < MAP_WIDTH)
