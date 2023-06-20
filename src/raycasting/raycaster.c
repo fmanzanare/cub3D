@@ -23,13 +23,13 @@ void	ft_rotation(mlx_key_data_t keydata, t_rc *data)
 		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
 		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
 
-		data->p3d.old_dir_x = data->p3d.dir_x;
+		data->p3d.old_dx = data->p3d.dir_x;
 		data->p3d.dir_x = data->p3d.dir_x * cos(ROT_SPEED_LEFT) - data->p3d.dir_y * sin(ROT_SPEED_LEFT);
-		data->p3d.dir_y = data->p3d.old_dir_x * sin(ROT_SPEED_LEFT) + data->p3d.dir_y * cos(ROT_SPEED_LEFT);
+		data->p3d.dir_y = data->p3d.old_dx * sin(ROT_SPEED_LEFT) + data->p3d.dir_y * cos(ROT_SPEED_LEFT);
 
-		data->p3d.old_plane_x = data->p3d.px;
+		data->p3d.old_px = data->p3d.px;
 		data->p3d.px = data->p3d.px * cos(ROT_SPEED_LEFT) - data->p3d.py * sin(ROT_SPEED_LEFT);
-		data->p3d.py = data->p3d.old_plane_x * sin(ROT_SPEED_LEFT) + data->p3d.py * cos(ROT_SPEED_LEFT);
+		data->p3d.py = data->p3d.old_px * sin(ROT_SPEED_LEFT) + data->p3d.py * cos(ROT_SPEED_LEFT);
 	}
 	if (keydata.key == MLX_KEY_RIGHT
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
@@ -40,13 +40,13 @@ void	ft_rotation(mlx_key_data_t keydata, t_rc *data)
 		data->player.dx = cos(data->player.alpha) * MULT_DELTA;
 		data->player.dy = sin(data->player.alpha) * MULT_DELTA;
 
-		data->p3d.old_dir_x = data->p3d.dir_x;
+		data->p3d.old_dx = data->p3d.dir_x;
 		data->p3d.dir_x = data->p3d.dir_x * cos(ROT_SPEED_RIGHT) - data->p3d.dir_y * sin(ROT_SPEED_RIGHT);
-		data->p3d.dir_y = data->p3d.old_dir_x * sin(ROT_SPEED_RIGHT) + data->p3d.dir_y * cos(ROT_SPEED_RIGHT);
+		data->p3d.dir_y = data->p3d.old_dx * sin(ROT_SPEED_RIGHT) + data->p3d.dir_y * cos(ROT_SPEED_RIGHT);
 
-		data->p3d.old_plane_x = data->p3d.px;
+		data->p3d.old_px = data->p3d.px;
 		data->p3d.px = data->p3d.px * cos(ROT_SPEED_RIGHT) - data->p3d.py * sin(ROT_SPEED_RIGHT);
-		data->p3d.py = data->p3d.old_plane_x * sin(ROT_SPEED_RIGHT) + data->p3d.py * cos(ROT_SPEED_RIGHT);
+		data->p3d.py = data->p3d.old_px * sin(ROT_SPEED_RIGHT) + data->p3d.py * cos(ROT_SPEED_RIGHT);
 	}
 }
 

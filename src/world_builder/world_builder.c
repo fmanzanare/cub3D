@@ -24,7 +24,7 @@ static void	print_c_and_f(t_rc *data)
 void	world_builder(t_rc *data)
 {
 	data->img_bg = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	memset(data->img_bg->pixels, 255, data->img_bg->width * data->img_bg->height * 4);
+	memset(data->img_bg->pixels, 255, data->img_bg->width * data->img_bg->height * 4); // Not allowed function!
 	print_c_and_f(data);
 	data->img_world = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 }
