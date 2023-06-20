@@ -129,7 +129,6 @@ char	*get_tex_or_color(char *str);
 int		map_builder(t_init *init, int idx);
 void	map_normalizer(t_init *init, int idx);
 void	map_checker(t_init *init);
-void	print_incnt(t_init *init);
 void	get_colors(t_init *init);
 void	check_texture_files(t_init *init);
 void	free_matrix(char **arr);
