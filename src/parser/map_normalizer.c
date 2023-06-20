@@ -19,39 +19,42 @@ static int	get_max_row(t_init *init, int idx)
 	return (len);
 }
 
+void	normalizer_loop(t_init *init, int idx)
+{
+	while (init->col < (init->map->width - 1))
+	{
+		if (!init->in_cnt[idx][init->aux_idx])
+		{
+			init->map->map[init->row][init->col] = '.';
+			init->col++;
+			continue ;
+		}
+		else if (ft_isspecialchar(init->in_cnt[idx][init->aux_idx]))
+			init->map->map[init->row][init->col] = '.';
+		else
+			init->map->map[init->row][init->col]
+				= init->in_cnt[idx][init->aux_idx];
+		init->col++;
+		init->aux_idx = init->col;
+	}
+}
+
 void	map_normalizer(t_init *init, int idx)
 {
-	int		col;
-	int		row;
-	int		aux_idx;
-
-	aux_idx = 0;
-	col = 0;
-	row = 0;
+	init->aux_idx = 0;
+	init->col = 0;
+	init->row = 0;
 	init->map->width = get_max_row(init, idx);
 	while (init->in_cnt[idx])
 	{
-		col = 0;
-		aux_idx = 0;
-		init->map->map[row] = malloc(sizeof(char) * (init->map->width + 1));
-		while (col < (init->map->width - 1))
-		{
-			if (!init->in_cnt[idx][aux_idx])
-			{
-				init->map->map[row][col] = '.';
-				col++;
-				continue ;
-			}
-			else if (ft_isspecialchar(init->in_cnt[idx][aux_idx]))
-				init->map->map[row][col] = '.';
-			else
-				init->map->map[row][col] = init->in_cnt[idx][aux_idx];
-			col++;
-			aux_idx = col;
-		}
-		init->map->map[row][col] = '\0';
+		init->col = 0;
+		init->aux_idx = 0;
+		init->map->map[init->row] = malloc(sizeof(char)
+				* (init->map->width + 1));
+		normalizer_loop(init, idx);
+		init->map->map[init->row][init->col] = '\0';
 		idx++;
-		row++;
+		init->row++;
 	}
-	init->map->map[row] = NULL;
+	init->map->map[init->row] = NULL;
 }

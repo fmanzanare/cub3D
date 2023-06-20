@@ -112,6 +112,9 @@ typedef struct s_init {
 	char	*f_rgb;
 	char	*c_rgb;
 	t_map	*map;
+	int		col;
+	int		row;
+	int		aux_idx;
 }	t_init;
 
 //*************************** FUNCTIONS **************************************//
