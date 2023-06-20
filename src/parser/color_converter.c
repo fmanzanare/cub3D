@@ -21,11 +21,11 @@ static void	get_rgb_ints(t_init *init, char **rgb, int opc)
 	int	g;
 	int	b;
 
-	r = ft_atoi(rgb[0]);
-	g = ft_atoi(rgb[1]);
-	b = ft_atoi(rgb[2]);
+	r = ft_atoi_checker(rgb[0], init);
+	g = ft_atoi_checker(rgb[1], init);
+	b = ft_atoi_checker(rgb[2], init);
 	if ((r < 0 || r > 255) || (g < 0 || g > 255) || (b < 0 || b > 255))
-		ft_errexit(init, "Error\nWrong value for red\n");
+		ft_errexit(init, "Error\nWrong value for RGB\n");
 	if (opc == 1)
 		init->map->f_hex = get_rgb(r, g, b, 255);
 	else if (opc == 2)

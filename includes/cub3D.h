@@ -130,6 +130,7 @@ void	free_matrix(char **arr);
 // CUB3D_UTILS
 void	struct_free_ft(t_init *init);
 void	ft_errexit(t_init *init, char *str);
+int		ft_atoi_checker(const char *str, t_init *init);
 
 // WORLD
 void	world_builder(t_rc *data);
