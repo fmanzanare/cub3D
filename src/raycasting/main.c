@@ -66,13 +66,12 @@ void	ft_print_player(t_rc *data)
 int32_t	main(int argc, char **argv)
 {
 	t_rc		data;
-	t_init		init;
 
-	arg_checker(argc, argv, &init);
+	arg_checker(argc, argv, &data.init);
 	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);
 	if (!data.mlx)
 		return (EXIT_FAILURE);
-	ft_init(&data, &init);
+	ft_init(&data, &data.init);
 	world_builder(&data);
 	data.texs[0] = mlx_load_png(data.map->n_tex);
 	data.texs[1] = mlx_load_png(data.map->s_tex);

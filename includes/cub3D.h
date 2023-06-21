@@ -82,6 +82,23 @@ typedef struct s_map {
 	unsigned int	c_hex;
 }	t_map;
 
+
+typedef struct s_init {
+	char	*in_route;
+	char	**in_cnt;
+	int		in_fd;
+	int		n_tex_fd;
+	int		s_tex_fd;
+	int		w_tex_fd;
+	int		e_tex_fd;
+	char	*f_rgb;
+	char	*c_rgb;
+	t_map	*map;
+	int		col;
+	int		row;
+	int		aux_idx;
+}	t_init;
+
 typedef struct s_rc{
 	mlx_t			*mlx;
 	mlx_image_t		*img_bg;
@@ -99,23 +116,8 @@ typedef struct s_rc{
 	t_map			*map;
 	int				sq_size_x;
 	int				sq_size_y;
+	t_init			init;
 }	t_rc;
-
-typedef struct s_init {
-	char	*in_route;
-	char	**in_cnt;
-	int		in_fd;
-	int		n_tex_fd;
-	int		s_tex_fd;
-	int		w_tex_fd;
-	int		e_tex_fd;
-	char	*f_rgb;
-	char	*c_rgb;
-	t_map	*map;
-	int		col;
-	int		row;
-	int		aux_idx;
-}	t_init;
 
 //*************************** FUNCTIONS **************************************//
 
@@ -137,7 +139,7 @@ void	free_matrix(char **arr);
 void	struct_free_ft(t_init *init);
 void	ft_errexit(t_init *init, char *str);
 int		ft_atoi_checker(const char *str, t_init *init);
-void	end_game(t_init *init, t_rc *data);
+void	end_game(t_rc *data);
 
 // WORLD
 void	world_builder(t_rc *data);

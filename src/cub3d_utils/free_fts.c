@@ -1,6 +1,6 @@
 #include "../../includes/cub3D.h"
 
-void	end_game(t_init *init, t_rc *data)
+void	end_game(t_rc *data)
 {
 	mlx_delete_texture(data->n_tex);
 	mlx_delete_texture(data->s_tex);
@@ -11,7 +11,7 @@ void	end_game(t_init *init, t_rc *data)
 	mlx_delete_image(data->mlx, data->img_p);
 	mlx_delete_image(data->mlx, data->img_map);
 	mlx_delete_image(data->mlx, data->img_h);
-	struct_free_ft(init);
+	struct_free_ft(&data->init);
 	mlx_terminate(data->mlx);
 	exit(1);
 }
