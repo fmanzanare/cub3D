@@ -6,6 +6,7 @@ static void	print_c_and_f(t_rc *data)
 	int	y;
 
 	y = 0;
+	// printf("c_hex: %x, fhex: %x\n", data->map->c_hex, data->map->f_hex);
 	while (y < HEIGHT)
 	{
 		x = 0;

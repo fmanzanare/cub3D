@@ -66,9 +66,8 @@ void	ft_player_finder(t_rc *data)
 void	ft_init(t_rc *data, t_init *init)
 {
 	data->map = init->map;
-	data->img_p = mlx_new_image(data->mlx, P_SIZE, P_SIZE);
-	ft_memset(data->img_p->pixels, 255,
-		data->img_p->width * data->img_p->height * 4);
+	data->img_p = mlx_new_image(data->mlx, 8, 8);
+	memset(data->img_p->pixels, 255, data->img_p->width * data->img_p->height * 4);
 	data->img_h = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
 	ft_player_finder(data);
 	data->player.dx = cos(data->player.alpha);

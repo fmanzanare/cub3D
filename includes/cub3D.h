@@ -11,11 +11,9 @@
 //************************** DEFINITIONS *************************************//
 # define WIDTH		1024
 # define HEIGHT		512
-# define P_SIZE		8
-# define TOT_SQ		8
 # define PIX_SQ		32
-# define MAP_WIDTH	1024/8
-# define MAP_HEIGHT	512/4
+# define MAP_WIDTH	128
+# define MAP_HEIGHT 128
 # define PI			3.14159265359
 # define ALPHA_INC	0.1
 # define MULT_DELTA	3.195
@@ -58,8 +56,12 @@ typedef struct s_player3d
 	double	tpos;
 }	t_player3d;
 
-
-typedef struct s_player{
+typedef struct s_player
+{
+	int		y_index;
+	int		x_index;
+	int		sum_y;
+	int		sum_x;
 	int		arr_x;
 	int		arr_y;
 	double	x;
@@ -69,7 +71,7 @@ typedef struct s_player{
 	double	old_px;
 	double	alpha;
 }	t_player;
-// height y width empiezan en 1
+
 typedef struct s_map {
 	char			**map;
 	int				height;
@@ -145,8 +147,14 @@ void	end_game(t_rc *data);
 void	world_builder(t_rc *data);
 void	raycast(t_rc *data);
 void	put_textures(t_rc *data, int x);
-
+// MINIMAP
 void	ft_key_hook(mlx_key_data_t keydata, void *param);
 void	ft_init(t_rc *data, t_init *init);
 void	ft_print_minimap(t_rc *data);
+void	ft_lateral_3d_displacement(t_rc *data, char type);
+void	ft_3d_displacement(t_rc *data, char type);
+void	ft_lateral_mv(t_rc *data, char type);
+void	ft_is_wall(t_rc *data, double py, double px, char type);
+int		is_wall(t_rc *data, double py, double px);
+void	ft_rotation(mlx_key_data_t keydata, t_rc *data);
 #endif
