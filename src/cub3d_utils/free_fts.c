@@ -2,10 +2,14 @@
 
 void	end_game(t_rc *data)
 {
-	mlx_delete_texture(data->n_tex);
-	mlx_delete_texture(data->s_tex);
-	mlx_delete_texture(data->w_tex);
-	mlx_delete_texture(data->e_tex);
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		mlx_delete_texture(data->texs[i]);
+		i++;
+	}
 	mlx_delete_image(data->mlx, data->img_bg);
 	mlx_delete_image(data->mlx, data->img_world);
 	mlx_delete_image(data->mlx, data->img_p);
@@ -13,7 +17,7 @@ void	end_game(t_rc *data)
 	mlx_delete_image(data->mlx, data->img_h);
 	struct_free_ft(&data->init);
 	mlx_terminate(data->mlx);
-	exit(1);
+	exit(0);
 }
 
 void	free_matrix(char **arr)
