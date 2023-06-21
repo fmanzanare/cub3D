@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-prad <vde-prad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:00:29 by vde-prad          #+#    #+#             */
-/*   Updated: 2023/06/21 19:00:36 by vde-prad         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:04:19 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct s_map {
 	unsigned int	f_hex;
 	unsigned int	c_hex;
 }	t_map;
-
 
 typedef struct s_init {
 	char	*in_route;
