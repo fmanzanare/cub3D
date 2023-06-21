@@ -1,13 +1,13 @@
-	 	 	NO 	 	 	./textures/GRAYWALL.png
+	 	 	NO 	 	 	./textures/mossy.png
 
-SO ./textures/BIGBRICKS.png
-
-
-   WE ./textures/CASTLEBRICKS.png
+SO ./textures/purplestone.png
 
 
+   WE ./textures/redbrick.png
 
-EA ./textures/DUNGEONBRICKS.png
+
+
+EA ./textures/wood.png
 
 
 
