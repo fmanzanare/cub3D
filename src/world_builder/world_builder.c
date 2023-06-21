@@ -6,7 +6,6 @@ static void	print_c_and_f(t_rc *data)
 	int	y;
 
 	y = 0;
-	// printf("c_hex: %x, fhex: %x\n", data->map->c_hex, data->map->f_hex);
 	while (y < HEIGHT)
 	{
 		x = 0;
@@ -25,8 +24,8 @@ static void	print_c_and_f(t_rc *data)
 void	world_builder(t_rc *data)
 {
 	data->img_bg = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	ft_memset(data->img_bg->pixels, 255, data->img_bg->width
-		* data->img_bg->height * 4);
+	ft_memset(data->img_bg->pixels, 255,
+		data->img_bg->width * data->img_bg->height * 4);
 	print_c_and_f(data);
 	data->img_world = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 }

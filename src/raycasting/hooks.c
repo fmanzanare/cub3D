@@ -13,7 +13,7 @@ void	ft_print_direction(t_rc *data)
 	dy = 2 + t * (data->player.dy / MULT_DELTA);
 	x = MAP_WIDTH / 2 + dx;
 	y = MAP_HEIGHT / 2 + dy;
-	memset(data->img_h->pixels, 0, MAP_WIDTH * MAP_HEIGHT * 4);
+	ft_memset(data->img_h->pixels, 0, MAP_WIDTH * MAP_HEIGHT * 4);
 	while (t++ < MAP_WIDTH
 		&& !is_wall(data, data->player.y + dy, data->player.x + dx))
 	{
@@ -32,10 +32,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 
 	data = (t_rc *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-	{
-		mlx_terminate(data->mlx);
-		exit(0);
-	}
+		end_game(data);
 	if (keydata.key == MLX_KEY_W
 		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 		ft_3d_displacement(data, 'W');
