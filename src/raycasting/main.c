@@ -5,39 +5,11 @@ static void	ft_put_image(t_rc *data)
 	int	x_map;
 	int	y_map;
 
-	x_map = (MAP_WIDTH / 2) - (P_SIZE / 2);
-	y_map = (MAP_HEIGHT / 2) - (P_SIZE / 2);
+	x_map = (MAP_WIDTH / 2) - (8 / 2);
+	y_map = (MAP_HEIGHT / 2) - (8 / 2);
 	mlx_image_to_window(data->mlx, data->img_map, 0, 0);
 	mlx_image_to_window(data->mlx, data->img_p, x_map, y_map);
 	mlx_image_to_window(data->mlx, data->img_h, 0, 0);
-}
-
-void	ft_is_wall(t_rc *data, double py, double px, char type)
-{
-	int	yp;
-	int	xp;
-	char **map = data->map->map;
-
-	yp = (int)py / (MAP_HEIGHT / data->map->height);
-	xp = (int)px / (MAP_WIDTH / data->map->width);
-	if (map[(int)data->player.y / (MAP_HEIGHT / data->map->height)][xp] == '0' && type == 'W')
-		data->player.x += data->player.dx;
-	if (map[yp][(int)data->player.x / (MAP_WIDTH / data->map->width)] == '0' && type == 'W')
-		data->player.y += data->player.dy;
-	if (map[(int)data->player.y / (MAP_HEIGHT / data->map->height)][xp] == '0' && type == 'S')
-		data->player.x -= data->player.dx;
-	if (map[yp][(int)data->player.x / (MAP_WIDTH / data->map->width)] == '0' && type == 'S')
-		data->player.y -= data->player.dy;
-	if (map[(int)data->player.y / (MAP_HEIGHT / data->map->height)][xp] == '0' && type == 'A')
-		data->player.x += data->player.dy;
-	if (map[yp][(int)data->player.x / (MAP_WIDTH / data->map->width)] == '0' && type == 'A')
-		data->player.y -= data->player.dx;
-	if (map[(int)data->player.y / (MAP_HEIGHT / data->map->height)][xp] == '0' && type == 'D')
-		data->player.x -= data->player.dy;
-	if (map[yp][(int)data->player.x / (MAP_WIDTH / data->map->width)] == '0' && type == 'D')
-		data->player.y += data->player.dx;
-	data->img_p->instances[0].y = data->player.y;
-	data->img_p->instances[0].x = data->player.x;
 }
 
 void	ft_print_player(t_rc *data)
