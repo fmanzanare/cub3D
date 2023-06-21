@@ -56,6 +56,8 @@ void	map_reader(t_init *init)
 		init->in_cnt[j] = get_next_line(init->in_fd);
 		j++;
 	}
+	init->in_cnt[j] = NULL;
+	close(init->in_fd);
 	map_parser(init);
 	get_colors(init);
 }

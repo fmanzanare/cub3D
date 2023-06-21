@@ -23,10 +23,16 @@ void	ft_print_player(t_rc *data)
 		pointer[p++] = 0xFF00FFFF;
 }
 
-int32_t	main(int argc, char **argv)
+void	leaks(void)
+{
+	system("leaks -q cub3D");
+}
+
+int	main(int argc, char **argv)
 {
 	t_rc		data;
 
+	atexit(leaks);
 	arg_checker(argc, argv, &data.init);
 	data.mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);
 	if (!data.mlx)

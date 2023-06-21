@@ -15,7 +15,7 @@ export HEADER
 NAME = cub3D
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra -g3
 COLOR = \033[1;32m
 
 SRCS_MAP = $(addprefix ./src/parser/, inputs_checker.c map_init.c map_parser.c textures_catcher.c colors_catcher.c map_catcher.c map_normalizer.c map_checker.c color_converter.c)
