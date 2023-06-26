@@ -6,7 +6,7 @@
 /*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:03:16 by fmanzana          #+#    #+#             */
-/*   Updated: 2023/06/21 19:03:17 by fmanzana         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:20:37 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_texture_files(t_init *init)
 		ft_errexit(init, "Error\nEast texture file not found.\n");
 }
 
-char	*get_tex_or_color(char *str)
+char	*get_tex_or_color(t_init *init, char *str)
 {
 	char	*ret;
 	int		i;
@@ -34,6 +34,8 @@ char	*get_tex_or_color(char *str)
 	while (ft_isspecialchar(*str))
 		str++;
 	ret = malloc(sizeof(char) * (ft_strlen(str)));
+	if (!ret)
+		ft_errexit(init, "Error\nNot enough memory available.\n");
 	while (*str && *str != '\n')
 	{
 		ret[i] = *str;
@@ -61,25 +63,25 @@ static int	check_cardinal(t_init *init, char *str)
 	if (*str == 'N' && str[1] == 'O')
 	{
 		check_dup_textures(init, 1);
-		init->map->n_tex = get_tex_or_color(str);
+		init->map->n_tex = get_tex_or_color(init, str);
 		return (1);
 	}
 	else if (*str == 'S' && str[1] == 'O')
 	{
 		check_dup_textures(init, 2);
-		init->map->s_tex = get_tex_or_color(str);
+		init->map->s_tex = get_tex_or_color(init, str);
 		return (1);
 	}
 	else if (*str == 'W' && str[1] == 'E')
 	{
 		check_dup_textures(init, 3);
-		init->map->w_tex = get_tex_or_color(str);
+		init->map->w_tex = get_tex_or_color(init, str);
 		return (1);
 	}
 	else if (*str == 'E' && str[1] == 'A')
 	{
 		check_dup_textures(init, 4);
-		init->map->e_tex = get_tex_or_color(str);
+		init->map->e_tex = get_tex_or_color(init, str);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:02:34 by fmanzana          #+#    #+#             */
-/*   Updated: 2023/06/21 19:02:35 by fmanzana         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:06:33 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ static void	print_c_and_f(t_rc *data)
 void	world_builder(t_rc *data)
 {
 	data->img_bg = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->img_bg)
+		ft_errexit(&data->init, "Error\nNot enough memory for bg.\n");
 	ft_memset(data->img_bg->pixels, 255,
 		data->img_bg->width * data->img_bg->height * 4);
 	print_c_and_f(data);
 	data->img_world = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->img_world)
+		ft_errexit(&data->init, "Error\nNot enough memory for bg.\n");
 }

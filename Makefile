@@ -30,7 +30,7 @@ OBJS_CUB3D_UTILS = $(addsuffix .o, $(notdir $(basename $(SRCS_CUB3D_UTILS))))
 
 LIBFT = ./includes/libft_plus/libft.a
 LIBFT_LINK = -L./includes/libft_plus -lft
-GLFW_L	= -L/sgoinfre/goinfre/Perso/$(USER)/homebrew/Cellar/glfw/3.3.8/lib/ -l glfw
+GLFW_L	= -L/sgoinfre/goinfre/Perso/$(USER)/homebrew/Cellar/glfw/3.3.7/lib/ -l glfw
 MLX = ./MLX42/libmlx42.a
 MLX_I = -I./MLX42/include
 MLX_L	= -L MLX42 -l mlx42

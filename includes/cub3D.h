@@ -6,7 +6,7 @@
 /*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:00:29 by vde-prad          #+#    #+#             */
-/*   Updated: 2023/06/21 19:04:19 by fmanzana         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:20:06 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	init_vars(t_init *init);
 void	map_reader(t_init *init);
 int		check_texture(t_init *init, char *str);
 int		check_colors(t_init *init, char *str);
-char	*get_tex_or_color(char *str);
+char	*get_tex_or_color(t_init *init, char *str);
 int		map_builder(t_init *init, int idx);
 void	map_normalizer(t_init *init, int idx);
 void	map_checker(t_init *init);
@@ -158,6 +158,7 @@ void	end_game(t_rc *data);
 void	world_builder(t_rc *data);
 void	raycast(t_rc *data);
 void	put_textures(t_rc *data, int x);
+void	png_to_textures(t_rc *data);
 // MINIMAP
 void	ft_key_hook(mlx_key_data_t keydata, void *param);
 void	ft_init(t_rc *data, t_init *init);

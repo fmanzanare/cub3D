@@ -6,7 +6,7 @@
 /*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:03:09 by fmanzana          #+#    #+#             */
-/*   Updated: 2023/06/21 19:03:10 by fmanzana         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:20:44 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	map_normalizer(t_init *init, int idx)
 		init->aux_idx = 0;
 		init->map->map[init->row] = malloc(sizeof(char)
 				* (init->map->width + 1));
+		if (!init->map->map[init->row])
+			ft_errexit(init, "Error\nNot enough memory for map array.\n");
 		normalizer_loop(init, idx);
 		init->map->map[init->row][init->col] = '\0';
 		idx++;

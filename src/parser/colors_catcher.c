@@ -6,7 +6,7 @@
 /*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:02:46 by fmanzana          #+#    #+#             */
-/*   Updated: 2023/06/21 19:02:47 by fmanzana         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:19:35 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static int	check_cf(t_init *init, char *str)
 	if (*str == 'F')
 	{
 		check_dup_colors(init, 1);
-		init->f_rgb = get_tex_or_color(str);
+		init->f_rgb = get_tex_or_color(init, str);
 		return (1);
 	}
 	else if (*str == 'C')
 	{
 		check_dup_colors(init, 2);
-		init->c_rgb = get_tex_or_color(str);
+		init->c_rgb = get_tex_or_color(init, str);
 		return (1);
 	}
 	return (0);

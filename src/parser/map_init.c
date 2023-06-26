@@ -6,7 +6,7 @@
 /*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:03:06 by fmanzana          #+#    #+#             */
-/*   Updated: 2023/06/21 19:03:06 by fmanzana         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:20:29 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ void	init_vars(t_init *init)
 	init->f_rgb = NULL;
 	init->c_rgb = NULL;
 	init->map = malloc(sizeof(t_map));
+	if (!init->map)
+		ft_errexit(init, "Error\nNot enough memory for map array.\n");
 	init_map_vars(init->map);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-prad <vde-prad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:55:51 by vde-prad          #+#    #+#             */
-/*   Updated: 2023/06/21 18:55:52 by vde-prad         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:04:17 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	ft_init(&data, &data.init);
 	world_builder(&data);
-	data.texs[0] = mlx_load_png(data.map->n_tex);
-	data.texs[1] = mlx_load_png(data.map->s_tex);
-	data.texs[2] = mlx_load_png(data.map->w_tex);
-	data.texs[3] = mlx_load_png(data.map->e_tex);
+	png_to_textures(&data);
 	raycast(&data);
 	mlx_image_to_window(data.mlx, data.img_bg, 0, 0);
 	mlx_image_to_window(data.mlx, data.img_world, 0, 0);

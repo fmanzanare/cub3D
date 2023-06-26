@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-prad <vde-prad@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:55:57 by vde-prad          #+#    #+#             */
-/*   Updated: 2023/06/21 18:55:58 by vde-prad         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:08:30 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	ft_init(t_rc *data, t_init *init)
 {
 	data->map = init->map;
 	data->img_p = mlx_new_image(data->mlx, 8, 8);
+	if (!data->img_p)
+		ft_errexit(&data->init, "Error\nNot enough memory for player.\n");
 	ft_memset(data->img_p->pixels, 255,
 		data->img_p->width * data->img_p->height * 4);
 	data->img_h = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
@@ -93,6 +95,8 @@ void	ft_init(t_rc *data, t_init *init)
 	data->p3d.pos_y = (data->player.y / PIX_SQ);
 	ft_print_player(data);
 	data->img_map = mlx_new_image(data->mlx, MAP_WIDTH, MAP_HEIGHT);
+	if (!data->img_p)
+		ft_errexit(&data->init, "Error\nNot enough memory for minimap.\n");
 	ft_memset(data->img_map->pixels, 255,
 		data->img_map->width * data->img_map->height * 4);
 	ft_print_minimap(data);
