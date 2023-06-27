@@ -6,7 +6,7 @@
 /*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:02:28 by fmanzana          #+#    #+#             */
-/*   Updated: 2023/06/26 17:03:27 by fmanzana         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:31:55 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	png_to_textures(t_rc *data)
 {
-	data->texs[0] = mlx_load_png(data->map->n_tex);
+	data->texs[0] = mlx_load_png(data->map->w_tex);
 	if (!data->texs[0])
 		ft_errexit(&data->init, "Error\nNot enough memory for textures.\n");
-	data->texs[1] = mlx_load_png(data->map->s_tex);
+	data->texs[1] = mlx_load_png(data->map->n_tex);
 	if (!data->texs[1])
 		ft_errexit(&data->init, "Error\nNot enough memory for textures.\n");
-	data->texs[2] = mlx_load_png(data->map->w_tex);
+	data->texs[2] = mlx_load_png(data->map->e_tex);
 	if (!data->texs[2])
 		ft_errexit(&data->init, "Error\nNot enough memory for textures.\n");
-	data->texs[3] = mlx_load_png(data->map->e_tex);
+	data->texs[3] = mlx_load_png(data->map->s_tex);
 	if (!data->texs[3])
 		ft_errexit(&data->init, "Error\nNot enough memory for textures.\n");
 }

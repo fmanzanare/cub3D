@@ -6,7 +6,7 @@
 /*   By: fmanzana <fmanzana@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:55:57 by vde-prad          #+#    #+#             */
-/*   Updated: 2023/06/26 17:08:30 by fmanzana         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:28:35 by fmanzana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static void	ft_orientation(t_rc *data, char type)
 {
 	if (type == 'E')
 	{
-		data->player.alpha = PI;
+		data->player.alpha = 0;
 		data->p3d.px = 0;
-		data->p3d.py = -0.66;
+		data->p3d.py = 0.66;
 	}
 	else if (type == 'N')
 	{
@@ -39,9 +39,9 @@ static void	ft_orientation(t_rc *data, char type)
 	}
 	else if (type == 'W')
 	{
-		data->player.alpha = 0;
+		data->player.alpha = PI;
 		data->p3d.px = 0;
-		data->p3d.py = 0.66;
+		data->p3d.py = -0.66;
 	}
 	else if (type == 'S')
 	{
