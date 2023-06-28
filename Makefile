@@ -18,15 +18,17 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g3
 COLOR = \033[1;32m
 
-SRCS_MAP = $(addprefix ./src/parser/, inputs_checker.c map_init.c map_parser.c textures_catcher.c colors_catcher.c map_catcher.c map_normalizer.c map_checker.c color_converter.c)
-SRCS_WORLD_BUILDER = $(addprefix ./src/world_builder/, world_builder.c raycast.c textures.c)
-SRCS_CUB3D_UTILS = $(addprefix ./src/cub3d_utils/, free_fts.c ft_errexit.c ft_atoi_checker.c)
-SRCS_RCASTER = $(addprefix ./src/raycasting/, main.c minimap.c init.c hooks.c collisions.c motion.c rotation.c)
+VPATH	= ./src/parser/:./src/cub3d_utils/:./src/raycasting/:./src/world_builder/
 
-OBJS_RCASTER = $(addsuffix .o, $(notdir $(basename $(SRCS_RCASTER))))
-OBJS_MAP = $(addsuffix .o, $(notdir $(basename $(SRCS_MAP))))
-OBJS_WORLD_BUILDER = $(addsuffix .o, $(notdir $(basename $(SRCS_WORLD_BUILDER))))
-OBJS_CUB3D_UTILS = $(addsuffix .o, $(notdir $(basename $(SRCS_CUB3D_UTILS))))
+SRCS_MAP = inputs_checker.c map_init.c map_parser.c textures_catcher.c colors_catcher.c map_catcher.c map_normalizer.c map_checker.c color_converter.c
+SRCS_WORLD_BUILDER = world_builder.c raycast.c textures.c
+SRCS_CUB3D_UTILS = free_fts.c ft_errexit.c ft_atoi_checker.c
+SRCS_RCASTER = main.c minimap.c init.c hooks.c collisions.c motion.c rotation.c
+
+OBJS_RCASTER = $(SRCS_RCASTER:.c=.o)
+OBJS_MAP = $(SRCS_MAP:.c=.o)
+OBJS_WORLD_BUILDER = $(SRCS_WORLD_BUILDER:.c=.o)
+OBJS_CUB3D_UTILS = $(SRCS_CUB3D_UTILS:.c=.o)
 
 LIBFT = ./includes/libft_plus/libft.a
 LIBFT_LINK = -L./includes/libft_plus -lft
@@ -37,18 +39,6 @@ MLX_L	= -L MLX42 -l mlx42
 
 all:	$(NAME)
 
-$(OBJS_RCASTER):	$(SRCS_RCASTER)
-			@$(CC) $(CFLAGS) -c $(SRCS_RCASTER) $(MLX_I)
-
-$(OBJS_MAP):	$(SRCS_MAP)
-			@$(CC) $(CFLAGS) -c $(SRCS_MAP) $(MLX_I)
-
-$(OBJS_WORLD_BUILDER):	$(SRCS_WORLD_BUILDER)
-			@$(CC) $(CFLAGS) -c $(SRCS_WORLD_BUILDER) $(MLX_I)
-
-$(OBJS_CUB3D_UTILS):	$(SRCS_CUB3D_UTILS)
-			@$(CC) $(CFLAGS) -c $(SRCS_CUB3D_UTILS) $(MLX_I)
-
 $(NAME):	$(OBJS_RCASTER) $(OBJS_MAP) $(OBJS_WORLD_BUILDER) $(OBJS_CUB3D_UTILS) $(LIBFT) $(MLX)
 			@$(CC) $(CFLAGS) $(OBJS_RCASTER) $(OBJS_MAP) $(OBJS_WORLD_BUILDER) $(OBJS_CUB3D_UTILS) $(MLX_L) $(GLFW_L) $(LIBFT_LINK) -o $(NAME)
 			@echo "$(COLOR)$$HEADER"
@@ -58,6 +48,9 @@ $(LIBFT):
 
 $(MLX):
 			@make -C ./MLX42
+
+%.o:	%.c
+			@$(CC) $(CFLAGS) -c $<
 
 re:			fclean all
 
